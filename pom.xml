@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.shopstack</groupId>
+  <artifactId>shopstack_alpha</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <packaging>pom</packaging>
+  
+  <name>shopstack parent</name>
+  
+  <description>parent project for the shopstack backend setup</description>
+  
+  <dependencies>
+  
+  <!-- spring framework dependencies -->
+  
+  			<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		    <scope>test</scope>
+		</dependency>
+	
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+		
+	<!--Test dependencies -->
+	
+		<dependency>
+			    <groupId>junit</groupId>
+			    <artifactId>junit</artifactId>
+			    <version>4.12</version>
+			    <scope>test</scope>
+			</dependency>
+		
+			<dependency>
+			    <groupId>org.junit.platform</groupId>
+			    <artifactId>junit-platform-launcher</artifactId>
+			    <version>1.5.2</version>
+			    <scope>test</scope>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.mockito</groupId>
+			    <artifactId>mockito-core</artifactId>
+			    <version>3.2.4</version>
+			    <scope>test</scope>
+			</dependency>
+			
+	  
+  </dependencies>
+  
+  <modules>
+  	<module>shopstack_data</module>
+  	<module>shopstack_service</module>
+  	<module>shopstack_web</module>
+  </modules>
+</project>
