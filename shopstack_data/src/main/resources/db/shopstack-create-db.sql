@@ -11,7 +11,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
 -- -----------------------------------------------------
 -- Schema shopstack
 -- -----------------------------------------------------
@@ -21,9 +20,6 @@ DROP SCHEMA IF EXISTS `shopstack` ;
 -- Schema shopstack
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
-
-GRANT ALL ON shopstack.* TO 'shopstack_admin'@'localhost';
-
 USE `shopstack` ;
 
 -- -----------------------------------------------------
@@ -51,9 +47,12 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
   `shop_owner_id` INT(11) NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NULL,
   `email` VARCHAR(45) NOT NULL,
-  `contact_number` INT(12) NOT NULL,
+  `contact_number` INT(45) NOT NULL,
+  `role` VARCHAR(45) NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`shop_owner_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -66,15 +65,17 @@ DROP TABLE IF EXISTS `shopstack`.`shop` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`shop` (
   `shop_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `shop_name` VARCHAR(45) NULL DEFAULT NULL,
+  `shop_name` VARCHAR(45) NOT NULL,
   `logo` VARCHAR(45) NULL DEFAULT NULL,
   `address` VARCHAR(45) NULL DEFAULT NULL,
   `website` VARCHAR(45) NULL DEFAULT NULL,
-  `shop_owner_shop_owner_id` INT(11) NOT NULL,
-  PRIMARY KEY (`shop_id`, `shop_owner_shop_owner_id`),
-  INDEX `fk_shop_shop_owner1_idx` (`shop_owner_shop_owner_id` ASC),
+  `shop_owner_id` INT(11) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `date_created` DATETIME NOT NULL,
+  PRIMARY KEY (`shop_id`, `shop_owner_id`, `password`),
+  INDEX `fk_shop_shop_owner1_idx` (`shop_owner_id` ASC),
   CONSTRAINT `fk_shop_shop_owner1`
-    FOREIGN KEY (`shop_owner_shop_owner_id`)
+    FOREIGN KEY (`shop_owner_id`)
     REFERENCES `shopstack`.`shop_owner` (`shop_owner_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -93,9 +94,12 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`employee` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NULL DEFAULT NULL,
-  `privilege` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_number` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(45) NULL,
+  `contact_number` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `date_added` DATETIME NULL,
   PRIMARY KEY (`employee_id`),
   INDEX `fk_employee_shop1_idx` (`shop_id` ASC),
   CONSTRAINT `fk_employee_shop1`
@@ -117,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`product` (
   `product_name` VARCHAR(45) NOT NULL,
   `purchase_date` DATE NOT NULL,
   `expiry_date` DATE NULL,
-  `category` VARCHAR(45) NULL DEFAULT NULL,
+  `category` VARCHAR(45) NOT NULL,
   `rate` DOUBLE NOT NULL,
   `decription` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`product_code`))
@@ -153,7 +157,7 @@ DROP TABLE IF EXISTS `shopstack`.`supplier` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`supplier` (
   `supplier_id` INT(11) NOT NULL,
-  `first_name` VARCHAR(45) BINARY NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `organization_name` VARCHAR(45) NULL,
@@ -198,11 +202,11 @@ DROP TABLE IF EXISTS `shopstack`.`transaction` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`transaction` (
   `transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
   `employee_id` INT(11) NOT NULL,
+  `shop_shop_id` INT(11) NOT NULL,
   `transaction_item_id` INT(11) NOT NULL,
-  `transaction_date` DATETIME NULL DEFAULT NULL,
   `status` VARCHAR(45) NULL DEFAULT NULL,
   `total` DOUBLE NULL DEFAULT NULL,
-  `shop_shop_id` INT(11) NOT NULL,
+  `transaction_date` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`transaction_id`),
   INDEX `fk_transaction_employee1_idx` (`employee_id` ASC),
   INDEX `fk_transaction_item_id_idx` (`transaction_item_id` ASC),
@@ -234,14 +238,15 @@ DROP TABLE IF EXISTS `shopstack`.`invoice` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`invoice` (
   `invoice_id` INT(11) NOT NULL,
   `transaction_id` INT(11) NOT NULL,
-  `customer_id` INT(11) NULL DEFAULT NULL,
+  `customer_id` INT(11) NULL,
   `supplier_id` INT(11) NULL DEFAULT NULL,
   `discount` DOUBLE NULL DEFAULT NULL,
   `tax` DOUBLE NULL DEFAULT NULL,
-  `payments` DOUBLE NULL DEFAULT NULL,
-  `balance` DOUBLE NULL DEFAULT NULL,
+  `payments` DOUBLE NOT NULL,
+  `balance` DOUBLE NOT NULL,
   `total` DOUBLE NOT NULL,
   `notes` VARCHAR(100) NULL DEFAULT NULL,
+  `created_on` DATETIME NOT NULL,
   PRIMARY KEY (`invoice_id`),
   INDEX `fk_invoice_customer1_idx` (`customer_id` ASC),
   INDEX `fk_transaction_item_1_idx` (`transaction_id` ASC),
