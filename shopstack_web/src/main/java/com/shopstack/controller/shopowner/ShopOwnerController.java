@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ShopOwnerController {
 
 	
-	@GetMapping("/shopOwner")
+	@GetMapping("/shop-owner")
 	public String showRegisterForm() {
 		
 		return "onboarding";
 	}
+	
+//	@PostMapping("/shop-owner")
+	
 }

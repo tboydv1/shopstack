@@ -1,16 +1,19 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+
 <html>
 	<head>
 		
 		<title>Business Owner Registration</title>
 		
 		<!-- Bootstrap files reference -->
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!------ Include the above in your HEAD tag ---------->
-	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-	
+			<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+			<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<!------ Include the above in your HEAD tag ---------->
+			
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+			
 	</head>
 
 <body>
@@ -20,32 +23,24 @@
 <hr> -->
 
 
-
-
-
 <div class="card bg-light">
 
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center">Create Account</h4>
 	<p class="text-center">Get started with your free account</p>
-	<p>
+	
+	
+	<!-- Login extensions -->
+	
+<!-- 	<p>
 		<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
 		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-	</p>
-	
-	<p class="divider-text">
-        <span class="bg-light">OR</span>
-    </p>
-		
-		<!--   <div class="row"> -->
-			
-			<!-- <div class="col-md-4">
-			
-			</div> -->
+	</p> -->
 			
 			
-		<!-- Registration form start -->		
-	<form>
+		<!-- Registration form start -->
+				
+	<form:form>
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -114,8 +109,8 @@
 		        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
 		    </div> <!-- form-group// -->  
 		        
-	 	   <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
-	</form>
+	 	   <p class="text-center">Have an account? <a href="${pageContext.request.contextPath}/login">Log In</a> </p>                                                                 
+	</form:form>
 				<!-- Registration form end -->
 				
 		<!-- </div>
