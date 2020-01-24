@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+	 
+	  <parent>
+	    <groupId>com.shopstack</groupId>
+	    <artifactId>shopstack_alpha</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	  </parent>
+  
+  <artifactId>shopstack_data</artifactId>
+  
+  <name>shopstack data acess</name>
+  
+  <description>Data acess layer for the shop stack project</description>
+  
+  <!-- Java compiler version specification -->
+  <properties>
+	  <maven.compiler.source>11</maven.compiler.source>
+	  <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+  
+  <dependencies>
+  
+   <!-- data source dependency -->
+  
+	  	<dependency>
+		    <groupId>com.mchange</groupId>
+		    <artifactId>c3p0</artifactId>
+		    <version>0.9.5.5</version>
+		</dependency>
+	
+	<!-- spring orm depenedency -->
+  		
+  		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+  	
+  <!-- hibernate dependecy -->
+  	
+  		 <dependency>
+		    <groupId>org.hibernate.orm</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>6.0.0.Alpha4</version>
+		</dependency>
+		
+	<!-- mysql db connector -->
+	
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.18</version>
+		</dependency>
+	
+	<!-- spring jdbc driver -->
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>	
+  </dependencies>
+  
+</project>
