@@ -22,6 +22,8 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 	@Transactional
 	public void addShopOwner(Shopowner shopowner) {
 		
+		
+		logger.info("it works");
 		Session currentSession = sessionFactory.getCurrentSession();
 		logger.info("Saving ShopOwner to database " + shopowner.toString());
 		

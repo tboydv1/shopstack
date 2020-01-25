@@ -95,6 +95,7 @@ public class ShopownerDaoImpTest {
 	@Test
 	public void dbManagerClassesInitializedTest() {
 		
+		logger.info("The object is not null");
 		assertNotNull(shopownerDaoImp);
 		assertNotNull(dataSource);
 
@@ -103,7 +104,10 @@ public class ShopownerDaoImpTest {
 	@Test
 	public void addShoponwerToDatabaseTest() {
 		
-	try {			logger.info("Creating new ShopOwner object");
+	try {	
+		
+		
+		logger.info("Creating new ShopOwner object");
 			 logger.info("Creating new ShopOwner object");
 			Shopowner shopowner = new Shopowner("John", "Paulina", "john@gmail.com", 23362, "no 1 ajenifuja street", "assistant marketer");
 			
