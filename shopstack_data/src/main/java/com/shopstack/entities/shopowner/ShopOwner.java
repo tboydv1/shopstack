@@ -1,5 +1,7 @@
 package com.shopstack.entities.shopowner;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,53 +16,59 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="shop_owner")
-public class Shopowner {
+public class ShopOwner {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	@Column(name="shop_owner_id")
 	@NotNull
 	private int id;
-
+	
 	@NotEmpty
 	@Column(name="first_name")
-	 private String first_name;
+	private String first_name;
 	
 	@Size(min=2, max=45)
 	@Column(name="last_name")
-	 private String last_name;
-	
-	@NotEmpty @Email
-	@Column(name="email")
-	 private String email;
-	
-	@NotEmpty
-	@Size(max=13)
-	@Column(name="contact_number")
-	 private int contact_number;
-	
+	private String last_name;
 	
 	@Column(name="address")
-	 private String address;
-	 
-	@Column(name="role")
-	private String role;
-	
-	public Shopowner(String first_name, @Size(min = 2, max = 45) String last_name,
-			@NotEmpty @Email String email,  @NotEmpty  int contact_number, String address, String role) {
-	
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.email = email;
-		this.contact_number = contact_number;
-		this.address = address;
-		this.role = role;
-	}
+	private String address;
 
-
+	@NotEmpty @Email
+	@Column(name="email")
+	private String email;
+	
+	@NotEmpty
+//	@Size(max=13)
+	@Column(name="contact_number")
+	private String contact_number;
+	
+//	@Column(name="role")
+//	private String role;
+	
+	@Column(name="username")
+	private String userName;
+	
+	@Column(name="password")
+	private String password;
+	
+	//constructor should initialize  all instance variables
 	public int getId() {
 		return id;
+	}
+
+	public ShopOwner(@NotEmpty String first_name, @Size(min = 2, max = 45) String last_name, String address,
+			@NotEmpty @Email String email, @NotEmpty  String contact_number, String userName,
+			String password) {
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.address = address;
+		this.email = email;
+		this.contact_number = contact_number;
+		this.userName = userName;
+		this.password = password;
 	}
 
 	public void setId(int id) {
@@ -91,11 +99,11 @@ public class Shopowner {
 		this.email = email;
 	}
 
-	public int getContact_number() {
+	public String getContact_number() {
 		return contact_number;
 	}
 
-	public void setContact_number(int contact_number) {
+	public void setContact_number(String contact_number) {
 		this.contact_number = contact_number;
 	}
 
@@ -107,18 +115,18 @@ public class Shopowner {
 		this.address = address;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+//	public String getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(String role) {
+//		this.role = role;
+//	}
 	
 	@Override
 	public String toString() {
 		return "Shopowner [ first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
-				+ ", contact_number=" + contact_number + ", address=" + address + ", role=" + role + "]";
+				+ ", contact_number=" + contact_number + ", address=" + address + "]";
 	}
 	
 

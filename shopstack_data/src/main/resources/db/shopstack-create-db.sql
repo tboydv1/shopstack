@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
   `last_name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NULL,
   `email` VARCHAR(45) NOT NULL,
-  `contact_number` INT(45) NOT NULL,
+  `contact_number` VARCHAR(45) NOT NULL,
   `role` VARCHAR(45) NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,

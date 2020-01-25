@@ -1,4 +1,4 @@
-package com.shopstack.shopownerDao;
+package com.shopstack.dao.shopowner;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shopstack.entities.shopowner.Shopowner;
+import com.shopstack.entities.shopowner.ShopOwner;
 
 
 @Repository
@@ -20,14 +20,14 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 	
 	
 	@Transactional
-	public void addShopOwner(Shopowner shopowner) {
+	public void addShopOwner(ShopOwner shopOwner) {
 		
 		
 		logger.info("it works");
 		Session currentSession = sessionFactory.getCurrentSession();
-		logger.info("Saving ShopOwner to database " + shopowner.toString());
+		logger.info("Saving ShopOwner to database " + shopOwner.toString());
 		
-		currentSession.save(shopowner);
+		currentSession.save(shopOwner);
 	}
 
 }

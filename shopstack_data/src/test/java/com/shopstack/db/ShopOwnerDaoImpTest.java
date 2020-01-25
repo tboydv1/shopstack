@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
 
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -16,20 +17,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.shopstack.entities.shopowner.Shopowner;
-import com.shopstack.shopownerDao.ShopOwnerDao;
-import com.shopstack.shopownerDao.ShopOwnerDaoImp;
-import com.sun.istack.logging.Logger;
+import com.shopstack.dao.shopowner.ShopOwnerDao;
+import com.shopstack.dao.shopowner.ShopOwnerDaoImp;
+
+import com.shopstack.entities.shopowner.ShopOwner;
+
+
 
 @ContextConfiguration(locations = "classpath:/data-access-layer-context.xml")
 @RunWith(SpringRunner.class)
-public class ShopownerDaoImpTest {
+public class ShopOwnerDaoImpTest {
 	
-	private Logger logger = Logger.getLogger(ShopOwnerDaoImp.class);
+	private Logger logger = Logger.getLogger(ShopOwnerDaoImp.class.getName());
 	
 	
 	@Autowired
-	private ShopOwnerDao shopownerDaoImp;
+	private ShopOwnerDao shopOwnerDaoImp;
 	
 	@Autowired
 	private ComboPooledDataSource dataSource;
@@ -56,35 +59,22 @@ public class ShopownerDaoImpTest {
 			
 			
 			DbUtils.loadDriver(jdbcDriver);
-//			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			con= DriverManager.getConnection(jdbcUrl, username, password);
 			
-			queryRunner.update("drop database shopstack");
+//			queryRunner.update("drop database shopstack");
+//			
+//			queryRunner.update("create database shopstack");
+//		
+//			queryRunner.update("use shopstack");
 			
-			queryRunner.update("create database shopstack");
-		
-			queryRunner.update("use shopstack");
-			
-			queryRunner.update("CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (\r\n" + 
-					"  `shop_owner_id` INT(11) NOT NULL AUTO_INCREMENT,\r\n" + 
-					"  `first_name` VARCHAR(45) NOT NULL,\r\n" + 
-					"  `last_name` VARCHAR(45) NOT NULL,\r\n" + 
-					"  `address` VARCHAR(45) NULL,\r\n" + 
-					"  `email` VARCHAR(45) NOT NULL,\r\n" + 
-					"  `contact_number` INT(45) NOT NULL,\r\n" + 
-					"  `role` VARCHAR(45) NULL,\r\n" + 
-					"  `username` VARCHAR(45) NOT NULL,\r\n" + 
-					"  `password` VARCHAR(45) NOT NULL,\r\n" + 
-					"  PRIMARY KEY (`shop_owner_id`))\r\n" + 
-					"ENGINE = InnoDB\r\n" + 
-					"DEFAULT CHARACTER SET = latin1;");
 			
 		}
 		catch(Exception e) {
-			logger.warning("setUp() method", e.getCause());
 			
+			logger.throwing(ShopOwnerDaoImpTest.class.getName(), "setUp() method", e.getCause());
 			e.printStackTrace();
+			
 		}
 		finally {
 			
@@ -95,8 +85,8 @@ public class ShopownerDaoImpTest {
 	@Test
 	public void dbManagerClassesInitializedTest() {
 		
-		logger.info("The object is not null");
-		assertNotNull(shopownerDaoImp);
+		logger.info("Testing that Classes under test are properlly initialized");
+		assertNotNull(shopOwnerDaoImp);
 		assertNotNull(dataSource);
 
 	}
@@ -104,17 +94,15 @@ public class ShopownerDaoImpTest {
 	@Test
 	public void addShoponwerToDatabaseTest() {
 		
-	try {	
+	try {
 		
+		logger.info("Creating a shop owner object");
+		ShopOwner tempShopOwner =  new ShopOwner("John", "Black", "123 black street", "john@mail.com", "07053564537432", "john", "john123");
 		
-		logger.info("Creating new ShopOwner object");
-			 logger.info("Creating new ShopOwner object");
-			Shopowner shopowner = new Shopowner("John", "Paulina", "john@gmail.com", 23362, "no 1 ajenifuja street", "assistant marketer");
-			
-			logger.info("Storing shopowner to the database");
-		shopownerDaoImp.addShopOwner(shopowner);
-			
-			logger.info("Successfully saving shopowner to the databsase");
+		logger.info("Saving the a new Shop owner to the database");
+		shopOwnerDaoImp.addShopOwner(tempShopOwner);
+
+		logger.info("Successfully saved shopowner to the databsase");
 	
 	}
 	catch(Exception e) {
