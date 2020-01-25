@@ -29,9 +29,11 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @ContextConfiguration("classpath:/data-access-layer-context.xml")
 @RunWith(SpringRunner.class)
 public class DbConnectionTest {
-	 private Logger logger = Logger.getLogger("DbConnectionTest");
 	
-	 @Autowired
+	
+	private Logger logger = Logger.getLogger("DbConnectionTest");
+	
+	@Autowired
 	private ComboPooledDataSource dataSource;
 	 
 	@Before
@@ -51,6 +53,7 @@ public class DbConnectionTest {
 	}
 	@Test
 	public void dbConnectionManegerExistTest() {
+		
 		String user = "shopstack_admin";
 		String password = "shopStack1.0";
 		String jdbcUrl = "jdbc:mysql://localhost:3306/shopstack?useSSL=false&amp;serverTimezone=UTC";

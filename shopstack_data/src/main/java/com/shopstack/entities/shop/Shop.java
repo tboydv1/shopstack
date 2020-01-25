@@ -2,19 +2,35 @@ package com.shopstack.entities.shop;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="shop")
 public class Shop {
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="shop_id")
 	private int shop_id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="logoPath")
 	private String logoPath;
+	
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="website")
 	private String website;
 	//add variable to reference shop owner id
+	@Column(name="password")
 	private String password;
 	private Date date_created;
 	public Shop(String name, String address, String website, String password, Date date_created) {
