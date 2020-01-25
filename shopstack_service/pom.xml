@@ -18,11 +18,9 @@
   
   <dependencies>
   	<dependency>
-  	
 	  	<groupId>com.shopstack</groupId>
 	    <artifactId>shopstack_data</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
-  	
   	</dependency>
   </dependencies>
   
