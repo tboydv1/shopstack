@@ -13,6 +13,11 @@
   <packaging>war</packaging>
   
   <name>shopstack_web Maven Webapp</name>
+  
+   <properties>
+	  <maven.compiler.source>12</maven.compiler.source>
+	  <maven.compiler.target>12</maven.compiler.target>
+  </properties>
  
   <url>http://maven.apache.org</url>
   <dependencies>
