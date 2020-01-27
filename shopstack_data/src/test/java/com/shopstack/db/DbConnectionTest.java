@@ -56,11 +56,13 @@ public class DbConnectionTest {
 		String jdbcUrl = "jdbc:mysql://localhost:3306/shopstack?useSSL=false&amp;serverTimezone=UTC";
 		
 		try {
+			
 			logger.info("Getting connection to database");
 			Connection myConnect = DriverManager.getConnection(jdbcUrl, user, password);
 			
 			assertNotNull(myConnect);
-			logger.info("Connection tto database successful! ");
+			logger.info("Connection to database successful! ");
+		
 		}
 		catch(SQLException e) {
 			logger.info("error connection to database");

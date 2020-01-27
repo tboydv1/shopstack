@@ -17,8 +17,7 @@ import com.sun.istack.NotNull;
 public class Shopowner {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name="shop_owner_id")
 	@NotNull
 	private int id;
