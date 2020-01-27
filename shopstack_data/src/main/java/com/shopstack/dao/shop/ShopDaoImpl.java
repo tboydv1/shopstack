@@ -24,7 +24,8 @@ public class ShopDaoImpl implements ShopDao {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		logger.info("saving a shop to the database");
+		logger.info("saving a shop to the database" + tempShop);
+		
 		currentSession.save(tempShop);
 	}
 

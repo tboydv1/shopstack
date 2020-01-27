@@ -1,7 +1,5 @@
 package com.shopstack.entities.shopowner;
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sun.istack.NotNull;
+
 
 @Entity
 @Table(name="shop_owner")
@@ -24,32 +22,39 @@ public class ShopOwner {
 	@NotNull
 	private int id;
 	
-	@NotEmpty
-	@Column(name="first_name")
-	private String first_name;
 	
-	@Size(min=2, max=45)
+	@NotNull(message="is required")
+	@Size(min=1)
+	@Column(name="first_name")
+	private String firstName;
+	
+	@NotNull(message="is required")
+	@Size(min=1)
 	@Column(name="last_name")
-	private String last_name;
+	private String lastName;
 	
 	@Column(name="address")
 	private String address;
 
-	@NotEmpty @Email
+	@Email
+	@NotNull
 	@Column(name="email")
 	private String email;
 	
-	@NotEmpty
+	
 //	@Size(max=13)
+	@NotNull
 	@Column(name="contact_number")
-	private String contact_number;
+	private String contactNumber;
 	
 //	@Column(name="role")
 //	private String role;
 	
+	@NotNull
 	@Column(name="username")
 	private String userName;
 	
+	@NotNull
 	@Column(name="password")
 	private String password;
 	
@@ -57,16 +62,22 @@ public class ShopOwner {
 	public int getId() {
 		return id;
 	}
+	
+	public ShopOwner() {
+		
+	}
 
-	public ShopOwner(@NotEmpty String first_name, @Size(min = 2, max = 45) String last_name, String address,
-			@NotEmpty @Email String email, @NotEmpty  String contact_number, String userName,
-			String password) {
+	
+	public ShopOwner(@NotNull(message = "is required") @Size(min = 1) String firstName,
+			@NotNull(message = "is required") @Size(min = 1) String lastName, String address,
+			@Email @NotNull String email, @NotNull String contactNumber, @NotNull String userName,
+			@NotNull String password) {
 		super();
-		this.first_name = first_name;
-		this.last_name = last_name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
 		this.email = email;
-		this.contact_number = contact_number;
+		this.contactNumber = contactNumber;
 		this.userName = userName;
 		this.password = password;
 	}
@@ -75,20 +86,20 @@ public class ShopOwner {
 		this.id = id;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String first_name) {
+		this.firstName = first_name;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String last_name) {
+		this.lastName = last_name;
 	}
 
 	public String getEmail() {
@@ -99,14 +110,6 @@ public class ShopOwner {
 		this.email = email;
 	}
 
-	public String getContact_number() {
-		return contact_number;
-	}
-
-	public void setContact_number(String contact_number) {
-		this.contact_number = contact_number;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -114,6 +117,8 @@ public class ShopOwner {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	
 
 //	public String getRole() {
 //		return role;
@@ -123,10 +128,34 @@ public class ShopOwner {
 //		this.role = role;
 //	}
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	
+	public String getContactNumber() {
+		return this.contactNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "Shopowner [ first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
-				+ ", contact_number=" + contact_number + ", address=" + address + "]";
+		return "Shopowner [ first_name=" + firstName + ", last_name=" + lastName + ", email=" + email
+				+ ", contact_number=" + contactNumber + ", address=" + address + "]";
 	}
 	
 
