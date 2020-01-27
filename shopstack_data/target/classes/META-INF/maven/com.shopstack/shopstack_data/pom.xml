@@ -63,17 +63,23 @@
 		</dependency>	
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 	<dependency>
-    <groupId>org.hibernate.validator</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>6.1.1.Final</version>
+	    <groupId>org.hibernate.validator</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>6.1.1.Final</version>
 	</dependency>
 		 <!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
 	<dependency>
-    <groupId>commons-dbutils</groupId>
-    <artifactId>commons-dbutils</artifactId>
-    <version>1.7</version>
+	    <groupId>commons-dbutils</groupId>
+	    <artifactId>commons-dbutils</artifactId>
+	    <version>1.7</version>
 	</dependency>
-  
+	
+	<!-- Dependency for running sql script from a file -->
+	  <dependency>
+		   <groupId>org.mybatis</groupId>
+		   <artifactId>mybatis</artifactId>
+		   <version>3.4.5</version>
+	</dependency>
   
 		
   </dependencies>

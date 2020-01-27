@@ -14,6 +14,12 @@
 			
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 			
+			<style type="text/css">
+				.error{
+					color:red
+				}
+			
+			</style>
 	</head>
 
 <body>
@@ -40,73 +46,82 @@
 			
 		<!-- Registration form start -->
 				
-	<form:form>
+	<form:form action = "shop-owner" modelAttribute = "shopOwner" method = "POST">
+			
 			<div class="form-group input-group">
-				<div class="input-group-prepend">
+			
+				 <div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 				 </div>
-		        <input name="" class="form-control" placeholder="Full name" type="text">
+				 
+		        <form:input path="firstName" class="form-control" placeholder="First name" type="text" />
+		        
+		    
+		        
 		    </div> <!-- form-group// -->
 		    
 		    <div class="form-group input-group">
+		    
 				<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 				 </div>
-		        <input name="" class="form-control" placeholder="Last name" type="text">
+				 
+		        <form:input path="lastName" class="form-control" placeholder="Last name" type="text"/>
+		       
+		        
 		    </div> <!-- form-group// -->
 		    
 		    <div class="form-group input-group">
+		    
 		    	<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 				 </div>
-		        <input name="" class="form-control" placeholder="Email address" type="email">
+				 
+		        <form:input path="email" class="form-control" placeholder="Email address" type="email" />
+		        <form:errors path="email" cssClass="error" />
+		        
 		    </div> <!-- form-group// -->
+		    
 		    
 		    <div class="form-group input-group">
 		    	<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 				</div>
 				
-				<select class="custom-select" style="max-width: 120px;">
-				    <option selected="">+234</option>
-				 <!--    <option value="1">+972</option>
-				    <option value="2">+198</option>
-				    <option value="3">+701</option> -->
-				</select>
-				
-		    	<input name="" class="form-control" placeholder="Phone number" type="text">
+		    	<form:input path="contactNumber" class="form-control" placeholder="Phone number" type="text" />
 		    </div> <!-- form-group// -->
 		    
-		   <!--  <div class="form-group input-group">
-		    	<div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-				</div>
-				
-				<select class="form-control">
-					<option selected=""> Select job type</option>
-					<option>Designer</option>
-					<option>Manager</option>
-					<option>Accaunting</option> 
-				</select> 
-				
-			</div> <!-- form-group end.// -->
+		    
+		      <div class="form-group input-group">
+				<div class="input-group-prepend">
+				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+				 </div>
+		        <form:input path="userName" class="form-control" placeholder="Username" type="text"/>
+		    </div> 
+	
+		    
+		    
+		   
 			
 		    <div class="form-group input-group">
 		    	<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 				</div>
-		        <input class="form-control" placeholder="Create password" type="password">
+		        <form:input path="password" class="form-control" placeholder="Create password" type="password" />
 		    </div> <!-- form-group// -->
 		    
-		    <div class="form-group input-group">
+		    
+		    
+		    <!--  -->
+		   <!-- <div class="form-group input-group">
 		    	<div class="input-group-prepend">
 				    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 				</div>
-		        <input class="form-control" placeholder="Repeat password" type="password">
-		    </div> <!-- form-group// -->   
+		        <class="form-control" placeholder="Repeat password" type="password">
+		    </div>  form-group// -->   
 		                                       
 		    <div class="form-group">
-		        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+		        <input type="submit" value="Create Account" class="btn btn-primary btn-block" />  
 		    </div> <!-- form-group// -->  
 		        
 	 	   <p class="text-center">Have an account? <a href="${pageContext.request.contextPath}/login">Log In</a> </p>                                                                 
