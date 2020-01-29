@@ -14,8 +14,8 @@ import javax.persistence.Table;
 
 import com.shopstack.entities.shopowner.ShopOwner;
 
-@Entity
-@Table(name="shop")
+//@Entity
+//@Table(name="shop")
 public class Shop {
 	
 	@Id

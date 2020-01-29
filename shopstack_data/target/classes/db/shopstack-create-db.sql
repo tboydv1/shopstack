@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema shopstack
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `shopstack` ;
@@ -14,6 +17,38 @@ DROP SCHEMA IF EXISTS `shopstack` ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
 USE `shopstack` ;
+
+-- -----------------------------------------------------
+-- Table `shopstack`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`user` (
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`username`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `shopstack`.`authorities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`authorities` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`authorities` (
+  `username` VARCHAR(50) NOT NULL,
+  `authority` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`username`),
+  CONSTRAINT `fk_authorities_1`
+    FOREIGN KEY (`username`)
+    REFERENCES `shopstack`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `shopstack`.`customer`
@@ -40,14 +75,19 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
   `shop_owner_id` INT(11) NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL DEFAULT NULL,
   `email` VARCHAR(45) NOT NULL,
   `contact_number` VARCHAR(45) NOT NULL,
-  `role` VARCHAR(45) NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`shop_owner_id`))
+  `user_username` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`shop_owner_id`, `user_username`),
+  INDEX `fk_shop_owner_user1_idx` (`user_username` ASC),
+  CONSTRAINT `fk_shop_owner_user1`
+    FOREIGN KEY (`user_username`)
+    REFERENCES `shopstack`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -88,16 +128,21 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`employee` (
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NOT NULL,
-  `role` VARCHAR(45) NULL,
-  `contact_number` INT NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `date_added` DATETIME NULL,
-  PRIMARY KEY (`employee_id`),
+  `role` VARCHAR(45) NULL DEFAULT NULL,
+  `contact_number` INT(11) NOT NULL,
+  `date_added` DATETIME NULL DEFAULT NULL,
+  `user_username` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`employee_id`, `user_username`),
   INDEX `fk_employee_shop1_idx` (`shop_id` ASC),
+  INDEX `fk_employee_user1_idx` (`user_username` ASC),
   CONSTRAINT `fk_employee_shop1`
     FOREIGN KEY (`shop_id`)
     REFERENCES `shopstack`.`shop` (`shop_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_employee_user1`
+    FOREIGN KEY (`user_username`)
+    REFERENCES `shopstack`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -113,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`product` (
   `product_code` INT(11) NOT NULL,
   `product_name` VARCHAR(45) NOT NULL,
   `purchase_date` DATE NOT NULL,
-  `expiry_date` DATE NULL,
+  `expiry_date` DATE NULL DEFAULT NULL,
   `category` VARCHAR(45) NOT NULL,
   `rate` DOUBLE NOT NULL,
   `decription` VARCHAR(45) NULL DEFAULT NULL,
@@ -130,7 +175,7 @@ DROP TABLE IF EXISTS `shopstack`.`inventory` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`inventory` (
   `inventory_id` INT(11) NOT NULL AUTO_INCREMENT,
   `product_code` INT(11) NOT NULL,
-  `opening_stock` INT(11) NULL,
+  `opening_stock` INT(11) NULL DEFAULT NULL,
   `closing_stock` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`inventory_id`),
   INDEX `fk_inventory_product1_idx` (`product_code` ASC),
@@ -153,8 +198,8 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`supplier` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `organization_name` VARCHAR(45) NULL,
-  `contact_number` INT NOT NULL,
+  `organization_name` VARCHAR(45) NULL DEFAULT NULL,
+  `contact_number` INT(11) NOT NULL,
   PRIMARY KEY (`supplier_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -231,7 +276,7 @@ DROP TABLE IF EXISTS `shopstack`.`invoice` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`invoice` (
   `invoice_id` INT(11) NOT NULL,
   `transaction_id` INT(11) NOT NULL,
-  `customer_id` INT(11) NULL,
+  `customer_id` INT(11) NULL DEFAULT NULL,
   `supplier_id` INT(11) NULL DEFAULT NULL,
   `discount` DOUBLE NULL DEFAULT NULL,
   `tax` DOUBLE NULL DEFAULT NULL,
