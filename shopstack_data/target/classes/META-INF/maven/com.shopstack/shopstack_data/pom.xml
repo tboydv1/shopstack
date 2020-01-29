@@ -15,8 +15,8 @@
   
   <!-- Java compiler version specification -->
   <properties>
-	  <maven.compiler.source>11</maven.compiler.source>
-	  <maven.compiler.target>11</maven.compiler.target>
+	  <maven.compiler.source>12</maven.compiler.source>
+	  <maven.compiler.target>12</maven.compiler.target>
   </properties>
   
   <dependencies>
@@ -44,6 +44,7 @@
 		    <artifactId>hibernate-core</artifactId>
 		    <version>6.0.0.Alpha4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.validation/com.springsource.javax.validation -->
 		
 	<!-- mysql db connector -->
 	
@@ -60,6 +61,27 @@
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>5.2.2.RELEASE</version>
 		</dependency>	
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+	<dependency>
+	    <groupId>org.hibernate.validator</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>6.1.1.Final</version>
+	</dependency>
+		 <!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
+	<dependency>
+	    <groupId>commons-dbutils</groupId>
+	    <artifactId>commons-dbutils</artifactId>
+	    <version>1.7</version>
+	</dependency>
+	
+	<!-- Dependency for running sql script from a file -->
+	  <dependency>
+		   <groupId>org.mybatis</groupId>
+		   <artifactId>mybatis</artifactId>
+		   <version>3.4.5</version>
+	</dependency>
+  
+		
   </dependencies>
   
 </project>

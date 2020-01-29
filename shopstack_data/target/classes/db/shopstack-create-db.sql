@@ -1,10 +1,3 @@
-DROP USER 'shopstack_admin'@'localhost';
-
-CREATE USER 'shopstack_admin'@'localhost' IDENTIFIED BY 'shopStack1.0';
-
-
-FLUSH PRIVILEGES;
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -49,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
   `last_name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NULL,
   `email` VARCHAR(45) NOT NULL,
-  `contact_number` INT(45) NOT NULL,
+  `contact_number` VARCHAR(45) NOT NULL,
   `role` VARCHAR(45) NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
