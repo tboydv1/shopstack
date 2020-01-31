@@ -8,29 +8,28 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shopstack.entities.shopowner.ShopOwner;
+import com.shopstack.entities.user.User;
 import com.shopstack.service.shopowner.ShopOwnerServiceImpl;
 
 @Controller
+@RequestMapping("/shop-owner")
 public class ShopOwnerController {
 
 	Logger logger = Logger.getLogger(ShopOwnerController.class.getName());
 	
 	@Autowired
 	private ShopOwnerServiceImpl shopOwnerServiceImpl;
-	
-	
-	//add an initbinder... to convert trim input strings
-	//remove leading and trailing whitespace
-	//resolve validation issue
+
 	
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
@@ -41,30 +40,38 @@ public class ShopOwnerController {
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 	
-	@GetMapping("/shop-owner")
-	public String showRegisterForm(Model theModel) {
+	@GetMapping("/register")
+	public String showRegisterForm(ModelMap theModelMap) {
 		
-		theModel.addAttribute("shopOwner", new ShopOwner());
-		
+		theModelMap.addAttribute("user", new User());
+		theModelMap.addAttribute("shopOwner", new ShopOwner());
+
 		return "onboarding";
 	}
 	
-	@PostMapping("/shop-owner")
+	@GetMapping("/process")
 	public String saveShopOwner(
 			@Valid @ModelAttribute("shopOwner") ShopOwner theShopOwner,
-			BindingResult theBindingResult) {
+			BindingResult theBindingResult, 
+				@Valid @ModelAttribute("user") User newUser, 
+				BindingResult userBindingResult) {
 		
 		logger.info("New shop owner form entry" + theShopOwner);
 		
 		logger.info("Validating binding result");
 		
-		if(theBindingResult.hasErrors()) {
+		if(theBindingResult.hasErrors() && userBindingResult.hasErrors()) {
 			
 			return "onboarding";
 		}
 		else {
 			
-			logger.info("calling the shopOwnerService.addShopOwner method");
+			logger.info("Calling the shop owner service implementation");
+			
+			logger.info("New shop owner entry: "+theShopOwner+"/nWith user details: "+newUser);
+			
+			//set shop owner details
+			theShopOwner.setUserDetail(newUser);
 			
 			shopOwnerServiceImpl.addShopOwner(theShopOwner);
 
@@ -73,10 +80,16 @@ public class ShopOwnerController {
 		
 	}
 	
-	@GetMapping("/success")
+	@GetMapping("/confirm")
 	public String showSuccessPage() {
 		
 		return "confirmation";
+	}
+	
+	@GetMapping("/dashboard")
+	public String showDashBoard() {
+		
+		return "dashboard";
 	}
 	
 	

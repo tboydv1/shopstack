@@ -4,22 +4,16 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema shopstack
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `shopstack` ;
 
 -- -----------------------------------------------------
 -- Schema shopstack
 -- -----------------------------------------------------
+DROP SCHEMA `shopstack`;
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
 USE `shopstack` ;
 
 -- -----------------------------------------------------
--- Table `shopstack`.`user`
+-- Table `mydb`.`user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopstack`.`user` ;
 
@@ -27,27 +21,10 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`user` (
   `username` VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
   `enabled` TINYINT(1) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`username`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `shopstack`.`authorities`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopstack`.`authorities` ;
-
-CREATE TABLE IF NOT EXISTS `shopstack`.`authorities` (
-  `username` VARCHAR(50) NOT NULL,
-  `authority` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`username`),
-  CONSTRAINT `fk_authorities_1`
-    FOREIGN KEY (`username`)
-    REFERENCES `shopstack`.`user` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
@@ -87,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -131,18 +108,11 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`employee` (
   `role` VARCHAR(45) NULL DEFAULT NULL,
   `contact_number` INT(11) NOT NULL,
   `date_added` DATETIME NULL DEFAULT NULL,
-  `user_username` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`employee_id`, `user_username`),
+  PRIMARY KEY (`employee_id`),
   INDEX `fk_employee_shop1_idx` (`shop_id` ASC),
-  INDEX `fk_employee_user1_idx` (`user_username` ASC),
   CONSTRAINT `fk_employee_shop1`
     FOREIGN KEY (`shop_id`)
     REFERENCES `shopstack`.`shop` (`shop_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_employee_user1`
-    FOREIGN KEY (`user_username`)
-    REFERENCES `shopstack`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

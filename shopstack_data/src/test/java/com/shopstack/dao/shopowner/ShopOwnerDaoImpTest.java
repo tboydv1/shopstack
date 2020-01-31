@@ -14,6 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
+import com.shopstack.dao.authority.AuthorityDao;
+import com.shopstack.dao.user.UserDao;
+import com.shopstack.entities.autorities.Authority;
 import com.shopstack.entities.shopowner.ShopOwner;
 import com.shopstack.entities.user.User;
 
@@ -31,6 +34,12 @@ public class ShopOwnerDaoImpTest {
 	
 	@Autowired
 	private ShopOwnerDao shopOwnerDaoImp;
+	
+	@Autowired
+	private UserDao userDaoImpl;
+	
+	@Autowired
+	private AuthorityDao authDaoImpl;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -71,20 +80,14 @@ public class ShopOwnerDaoImpTest {
 		
 	
 	try {
-		User username = new User("funmi", "test123", 1);
-		
-		logger.info("creating user details" + username);
-		
-		ShopOwner tempShopOwner1 =  new ShopOwner("Funmi", "Oyeyipo", "908 bowan street",
-				"green@mail.com", "07053564537432", username);
-		
-		shopOwnerDaoImp.saveShopOwner(tempShopOwner1);
-		
-		User username2 = new User("bleak", "test123", 1);
-		
-		ShopOwner tempShopOwner2 =  new ShopOwner("ray", "brook", "743 round street",
-				"ray@mail.com", "070746536653", username2);
 	
+		User username2 = new User("simeon", "test123", 1, "ROLE_MANAGER");
+		
+		ShopOwner tempShopOwner2 =  new ShopOwner("Simeon", "ocean", "743 round street",
+				"simeon@mail.com", "070746536653");
+		
+		tempShopOwner2.setUserDetail(username2);
+		
 		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);
 		
 		
@@ -92,7 +95,7 @@ public class ShopOwnerDaoImpTest {
 	catch(Exception exe) {
 		
 		logger.throwing(getClass().getName(), " addNewShopOwner_cascadeSave_username_password() ", exe);
-	
+		exe.printStackTrace();
 	}
 	}
 		

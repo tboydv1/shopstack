@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@taglib  uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <html>
 	<head>
@@ -25,6 +25,8 @@
 <body>
 	<div class="container">
 	
+	
+	<h4>Shopstack</h4>
 <!--  <br>  <p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com</a></p>
 <hr> -->
 
@@ -46,28 +48,28 @@
 			
 		<!-- Registration form start -->
 				
-	<form:form action = "shop-owner" modelAttribute = "shopOwner" method = "POST">
+	<form action ="process" method = "GET">
 			
 			<div class="form-group input-group">
 			
-				 <div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-				 </div>
-				 
-		        <form:input path="firstName" class="form-control" placeholder="First name" type="text" />
-		        
+			 <div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+			 </div>
+			<spring:bind path="shopOwner.firstName"> 
+	        	<input  type="text" name="${status.expression}" value="${status.value}"class="form-control" placeholder="First name"/>
+	        </spring:bind>
 		    
 		        
 		    </div> <!-- form-group// -->
 		    
 		    <div class="form-group input-group">
 		    
-				<div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-				 </div>
-				 
-		        <form:input path="lastName" class="form-control" placeholder="Last name" type="text"/>
-		       
+			<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+			 </div>
+			 <spring:bind path="shopOwner.lastName">
+	        	<input type="text"  class="form-control" name="${status.expression}" value="${status.value}" placeholder="Last name" />
+	       	 </spring:bind>
 		        
 		    </div> <!-- form-group// -->
 		    
@@ -77,39 +79,44 @@
 				    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 				 </div>
 				 
-		        <form:input path="email" class="form-control" placeholder="Email address" type="email" />
-		        <form:errors path="email" cssClass="error" />
+				 <spring:bind path="shopOwner.email">
+		        <input  type="email" name="${status.expression}" value="${status.value}"class="form-control" placeholder="Email address" />
+		        </spring:bind>
 		        
 		    </div> <!-- form-group// -->
 		    
-		    
-		    <div class="form-group input-group">
-		    	<div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-				</div>
-				
-		    	<form:input path="contactNumber" class="form-control" placeholder="Phone number" type="text" />
-		    </div> <!-- form-group// -->
-		    
-		    
-		      <div class="form-group input-group">
-				<div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-				 </div>
-		        <form:input path="userName" class="form-control" placeholder="Username" type="text"/>
-		    </div> 
-	
+		   
+		    	<div class="form-group input-group">
+			    	<div class="input-group-prepend">
+					    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+					</div>
+					 <spring:bind path="shopOwner.contactNumber">
+		    			<input type="text" name="${status.expression}" value="${status.value}"  class="form-control" placeholder="Phone number" />
+		    				</spring:bind>
+		    		</div> <!-- form-group// -->
 		    
 		    
 		   
-			
-		    <div class="form-group input-group">
-		    	<div class="input-group-prepend">
-				    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-				</div>
-		        <form:input path="password" class="form-control" placeholder="Create password" type="password" />
-		    </div> <!-- form-group// -->
+		      <div class="form-group input-group">
+					<div class="input-group-prepend">
+					    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+					 </div>
+					  <spring:bind path="user.username">
+		        		<input name="${status.expression}" value="${status.value}" class="form-control" placeholder="Username" type="text" />
+		    		</spring:bind>
+		    	</div> 
+				
 		    
+		    
+		   
+			<spring:bind path="user.password">
+			    <div class="form-group input-group">
+			    	<div class="input-group-prepend">
+					    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+					</div>
+			        <input class="form-control" name="${status.expression}" value="${status.value}" placeholder="Create password" type="password" />
+			    </div> <!-- form-group// -->
+		    	</spring:bind>
 		    
 		    
 		    <!--  -->
@@ -125,7 +132,7 @@
 		    </div> <!-- form-group// -->  
 		        
 	 	   <p class="text-center">Have an account? <a href="${pageContext.request.contextPath}/login">Log In</a> </p>                                                                 
-	</form:form>
+	</form>
 				<!-- Registration form end -->
 				
 		<!-- </div>
