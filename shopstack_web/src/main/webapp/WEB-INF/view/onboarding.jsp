@@ -49,6 +49,10 @@
 		<!-- Registration form start -->
 				
 	<form action ="process" method = "GET">
+	
+	<!-- Place for messages: error, alert etc ... -->
+
+	
 			
 			<div class="form-group input-group">
 			

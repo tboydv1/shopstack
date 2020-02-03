@@ -38,15 +38,14 @@ public class UserDaoImplTest {
 	/**
 	 * 
 	 */
+	
 	@Test
-	public void getUsersFromTheDatabaseTest() {
+	public void setDefaultValuesForEnableAndRoleTest() {
 		
-		List<User> result = userDao.getUsers();
+		User username2 = new User("tobi", "test123");
 		
-		assertEquals("john", result.get(0).getUsername());
-		
-		System.out.println(result.get(0).toString());
+		assertEquals(0, username2.getEnabled());
+		assertEquals("ROLE_MANAGER", username2.getRole());
 		
 	}
-
 }

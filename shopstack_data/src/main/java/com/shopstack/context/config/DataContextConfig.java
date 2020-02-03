@@ -8,11 +8,15 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -115,7 +119,40 @@ public class DataContextConfig {
 	
 		return txManager;
 	
-	}	
+	}
+	
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	    
+	    mailSender.setHost("smtp.gmail.com");
+	    mailSender.setPort(587);
+	     
+	    mailSender.setUsername("omotoshotobi22@gmail.com");
+	    mailSender.setPassword("galaxyME125");
+	     
+	    Properties props = mailSender.getJavaMailProperties();
+	    
+	    props.put("mail.transport.protocol", "smtp");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    
+	 
+		  props.put("mail.debug", "true");
+	     
+	    return mailSender;
+	}
+	
+	@Bean
+	public MessageSource messageSource()
+	{
+		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setUseCodeAsDefaultMessage(true);
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setCacheSeconds(0);
+		return messageSource;
+	}
 	
 	
 	

@@ -13,5 +13,7 @@ public interface ShopOwnerDao {
 	public void saveShopOwner(ShopOwner shopOwner);
 	
 	public List<ShopOwner> getShopOwners();
+	
+	public List<ShopOwner> findByEmail(String email);
 
 }

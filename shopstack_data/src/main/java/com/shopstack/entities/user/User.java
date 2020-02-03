@@ -44,6 +44,16 @@ public class User {
 	private String role;
 	
 	public User() {
+		
+		
+		//set default enabled value to 0 
+		this.enabled = 0;
+	}
+	
+	public User(@NotNull String username, @NotNull String password) {
+		
+		this.enabled = 0;
+		this.role = "ROLE_MANAGER";
 	}
 		
 
@@ -54,8 +64,9 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		
 		this.role = role;
+		
+		
 	}
 
 	public String getUsername() {
@@ -100,6 +111,12 @@ public class User {
 
 	public void setShopOwner(ShopOwner shopOwner) {
 		this.shopOwner = shopOwner;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", shopOwner="
+				+ shopOwner + ", role=" + role + "]";
 	}
 
 	

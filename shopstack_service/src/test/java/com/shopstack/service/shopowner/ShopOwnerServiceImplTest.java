@@ -64,18 +64,6 @@ public class ShopOwnerServiceImplTest {
 		verify(shopOwnerServiceImpl, times(1)).addShopOwner(tempShopOwner);
 	}
 	
-	@Test
-	public void modifyShopOwnerPasswordTest() {
-		
-		ShopOwnerServiceImpl impl = new ShopOwnerServiceImpl();
-		
-		String result = impl.appendBeforePassword("test", "{noop}");
-		
-		System.out.println(result);
-		
-		assertTrue(result.equals("{noop}test"));
-			
-	
-	}
+
 
 }

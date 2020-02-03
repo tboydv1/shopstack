@@ -5,15 +5,18 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
+-- Schema shopstack
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `shopstack` ;
+
 -- -----------------------------------------------------
 -- Schema shopstack
 -- -----------------------------------------------------
-DROP SCHEMA `shopstack`;
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
 USE `shopstack` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`user`
+-- Table `shopstack`.`user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopstack`.`user` ;
 
@@ -23,9 +26,30 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`user` (
   `enabled` TINYINT(1) NOT NULL,
   `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`username`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`VerificationToken`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `token` VARCHAR(45) NULL,
+  `expiry_date` DATE NULL,
+  `user_id` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_VerificationToken_user_idx` (`user_id` ASC),
+  CONSTRAINT `fk_VerificationToken_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `shopstack`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+USE `shopstack` ;
 
 -- -----------------------------------------------------
 -- Table `shopstack`.`customer`
@@ -33,7 +57,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `shopstack`.`customer` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`customer` (
-  `customer_id` INT(11) NOT NULL,
+  `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `organization_name` VARCHAR(45) NULL DEFAULT NULL,
@@ -64,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -75,12 +99,13 @@ DROP TABLE IF EXISTS `shopstack`.`shop` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`shop` (
   `shop_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `category` VARCHAR(100) NOT NULL,
   `shop_name` VARCHAR(45) NOT NULL,
   `logo` VARCHAR(45) NULL DEFAULT NULL,
   `address` VARCHAR(45) NULL DEFAULT NULL,
+  `shop_email` VARCHAR(45) NULL DEFAULT NULL,
   `website` VARCHAR(45) NULL DEFAULT NULL,
   `shop_owner_id` INT(11) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
   `date_created` DATETIME NOT NULL,
   PRIMARY KEY (`shop_id`, `shop_owner_id`, `password`),
   INDEX `fk_shop_shop_owner1_idx` (`shop_owner_id` ASC),
@@ -99,7 +124,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`employee` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`employee` (
-  `employee_id` INT(11) NOT NULL,
+  `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
   `shop_id` INT(11) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -164,7 +189,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`supplier` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`supplier` (
-  `supplier_id` INT(11) NOT NULL,
+  `supplier_id` INT(11) NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -244,7 +269,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`invoice` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`invoice` (
-  `invoice_id` INT(11) NOT NULL,
+  `invoice_id` INT(11) NOT NULL AUTO_INCREMENT,
   `transaction_id` INT(11) NOT NULL,
   `customer_id` INT(11) NULL DEFAULT NULL,
   `supplier_id` INT(11) NULL DEFAULT NULL,

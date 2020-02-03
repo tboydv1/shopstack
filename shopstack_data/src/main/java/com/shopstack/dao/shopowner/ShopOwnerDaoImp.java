@@ -46,7 +46,6 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 			
 		}
 	
-		
 	}
 
 	@Override
@@ -88,5 +87,29 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		
 		return sessionObj;
 	}
+
+	@Override
+	public List<ShopOwner> findByEmail(String email) {
+		
+		currentSession = getCurrentSession();
+		
+		Query query = currentSession.createQuery("from ShopOwner s where s.email = :userEmail");
+		
+		query.setParameter("userEmail", email);
+		
+		List<ShopOwner> resultList = query.getResultList();
+		
+		if(resultList.isEmpty()) {
+			
+			return null;
+		}
+		else {
+			return resultList;
+		}
+		
+		
+	}
+	
+	
 
 }

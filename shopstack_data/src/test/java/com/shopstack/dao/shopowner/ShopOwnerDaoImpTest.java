@@ -1,6 +1,8 @@
 package com.shopstack.dao.shopowner;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -14,9 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
-import com.shopstack.dao.authority.AuthorityDao;
-import com.shopstack.dao.user.UserDao;
-import com.shopstack.entities.autorities.Authority;
 import com.shopstack.entities.shopowner.ShopOwner;
 import com.shopstack.entities.user.User;
 
@@ -35,11 +34,6 @@ public class ShopOwnerDaoImpTest {
 	@Autowired
 	private ShopOwnerDao shopOwnerDaoImp;
 	
-	@Autowired
-	private UserDao userDaoImpl;
-	
-	@Autowired
-	private AuthorityDao authDaoImpl;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -81,14 +75,23 @@ public class ShopOwnerDaoImpTest {
 	
 	try {
 	
-		User username2 = new User("simeon", "test123", 1, "ROLE_MANAGER");
+		User username1 = new User("simeon", "test123", 1, "ROLE_MANAGER");
 		
-		ShopOwner tempShopOwner2 =  new ShopOwner("Simeon", "ocean", "743 round street",
+		ShopOwner tempShopOwner1 =  new ShopOwner("Simeon", "ocean", "743 round street",
 				"simeon@mail.com", "070746536653");
+		
+		tempShopOwner1.setUserDetail(username1);
+		
+		shopOwnerDaoImp.saveShopOwner(tempShopOwner1);
+		
+		User username2 = new User("tobi", "test123", 1, "ROLE_MANAGER");
+		
+		ShopOwner tempShopOwner2 =  new ShopOwner("Tobi", "Tosho", "743 round street",
+				"tboydv1@gmail.com", "070746536653");
 		
 		tempShopOwner2.setUserDetail(username2);
 		
-		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);
+		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);	
 		
 		
 	}
@@ -111,6 +114,19 @@ public class ShopOwnerDaoImpTest {
 			
 			logger.info(person.toString());
 		}
+		
+	}
+	
+	@Test
+	public void findShopOwnerByEmail() {
+		
+		List<ShopOwner> result = shopOwnerDaoImp.findByEmail("tboydv1@gmail.com");
+		
+		assertTrue(!(result == null));
+		
+		logger.info("Found: " + result.get(0).toString());
+		
+		assertEquals("tboydv1@gmail.com", result.get(0).getEmail());
 		
 	}
 	

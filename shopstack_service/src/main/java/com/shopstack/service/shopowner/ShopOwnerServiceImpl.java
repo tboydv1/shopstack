@@ -1,5 +1,6 @@
 package com.shopstack.service.shopowner;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,31 +30,43 @@ public class ShopOwnerServiceImpl implements ShopOwnerService {
 	 *
 	 */
 	@Override
-	public void addShopOwner(ShopOwner tempShopOwner) {
+	public ShopOwner addShopOwner(ShopOwner theShopOwner) {
 		
-		logger.info("Shop owner details "+ tempShopOwner + "/nShop owner credential "+tempShopOwner.getUserDetail());
+		logger.info("Shop owner details "+ theShopOwner + "/nShop owner credential "+theShopOwner.getUserDetail());
+
+		if(findByEmail(theShopOwner.getEmail()) == null) {
 		
-		//set enabled status and role for manager
-		tempShopOwner.getUserDetail().setEnabled(1);
-		tempShopOwner.getUserDetail().setRole("ROLE_MANAGER");
+			//append {noop} before password
+			String password = theShopOwner.getUserDetail().getPassword();
+			
+			theShopOwner.getUserDetail().setPassword("{noop}".concat(password));
+			
+			theShopOwner.getUserDetail().setEnabled(0);
+			theShopOwner.getUserDetail().setRole("ROLE_MANAGER");
+			
+			shopOwnerDaoImpl.saveShopOwner(theShopOwner);
+			
+			return theShopOwner;
 		
-		//append {noop} before password
-		String password = tempShopOwner.getUserDetail().getPassword();
+		}
 		
-		logger.info("Raw password " + password);
-		
-		tempShopOwner.getUserDetail().setPassword(appendBeforePassword(password, "{noop}"));
-		
-		logger.info("Secured password " + password);
-		
-		shopOwnerDaoImpl.saveShopOwner(tempShopOwner);
+		//returns null if user exists
+			return null;
 		
 	}
-	
-	public String appendBeforePassword(String password, String appendValue) {
-	
-		return appendValue.concat(password);
+
+
+	@Override
+	public List<ShopOwner> findByEmail(String email) {
 		
+		List<ShopOwner> resultList = shopOwnerDaoImpl.findByEmail(email);
+		
+		if(resultList == null) {
+			
+			return null;
+		}
+		
+		return resultList;
 		
 	}
 	

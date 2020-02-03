@@ -21,6 +21,13 @@
 		List of all the shops
 	
 	</p>
+	
+	<hr>
+		<form:form action="${pageContext.request.contextPath}/shop/create" 
+	method="GET">
+		
+		<input type="submit" value="Add new shop">
+	</form:form> 
 		
 	<hr>
 	
