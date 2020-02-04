@@ -42,7 +42,7 @@ public class ShopOwnerServiceImpl implements ShopOwnerService {
 			theShopOwner.getUserDetail().setPassword("{noop}".concat(password));
 			
 			theShopOwner.getUserDetail().setEnabled(0);
-			theShopOwner.getUserDetail().setRole("ROLE_MANAGER");
+			theShopOwner.getUserDetail().setRole("ROLE_USER");
 			
 			shopOwnerDaoImpl.saveShopOwner(theShopOwner);
 			
@@ -57,9 +57,9 @@ public class ShopOwnerServiceImpl implements ShopOwnerService {
 
 
 	@Override
-	public List<ShopOwner> findByEmail(String email) {
+	public ShopOwner findByEmail(String email) {
 		
-		List<ShopOwner> resultList = shopOwnerDaoImpl.findByEmail(email);
+		ShopOwner resultList = shopOwnerDaoImpl.findByEmail(email);
 		
 		if(resultList == null) {
 			

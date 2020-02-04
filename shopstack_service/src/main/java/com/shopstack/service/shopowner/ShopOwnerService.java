@@ -8,5 +8,5 @@ public interface ShopOwnerService {
 
 	public ShopOwner addShopOwner(ShopOwner shopOwner);
 	
-	public List<ShopOwner> findByEmail(String email);
+	public ShopOwner findByEmail(String email);
 }
