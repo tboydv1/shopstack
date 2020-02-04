@@ -14,6 +14,6 @@ public interface ShopOwnerDao {
 	
 	public List<ShopOwner> getShopOwners();
 	
-	public List<ShopOwner> findByEmail(String email);
+	public ShopOwner findByEmail(String email);
 
 }

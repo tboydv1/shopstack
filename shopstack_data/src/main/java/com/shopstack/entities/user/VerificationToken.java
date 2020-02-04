@@ -100,6 +100,14 @@ public class VerificationToken {
 	public static int getExpiration() {
 		return Expiration;
 	}
+
+	@Override
+	public String toString() {
+		return "VerificationToken [id=" + id + ", token=" + token + ", user=" + user + ", expiryDate=" + expiryDate
+				+ "]";
+	}
+	
+	
 	
 	
 	

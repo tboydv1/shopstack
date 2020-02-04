@@ -46,7 +46,9 @@ public class TokenRepositoryImpl implements TokenRepository {
 		
 		query.setParameter("userToken", token);
 		
-		VerificationToken result = (VerificationToken) query.getResultList();
+		VerificationToken result = (VerificationToken) query.getResultList().get(0);
+		
+		logger.info("Verification Token "+ result);
 		
 		return result;
 	}

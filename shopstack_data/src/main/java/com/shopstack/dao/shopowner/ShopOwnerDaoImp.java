@@ -34,14 +34,13 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		// TODO Auto-generated method stub
 		
 		try {
-			logger.info("getting current session");
+
 			currentSession = getCurrentSession();
-			
-			logger.info("Saving shop owner to the database >>" + shopOwner);
-			currentSession.save(shopOwner);
+
+			currentSession.saveOrUpdate(shopOwner);
 			
 		}catch(Exception exe) {
-			logger.error("Exception thrown while saving shopowner to the database");
+
 			exe.printStackTrace();
 			
 		}
@@ -54,7 +53,7 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		List<ShopOwner> resultList = null;
 		
 		try {
-			logger.info("Getting shop owners from database");
+
 			currentSession = getCurrentSession();
 			
 			Query<ShopOwner> theQuery = currentSession.createQuery("from ShopOwner", ShopOwner.class);
@@ -62,7 +61,7 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 			resultList = theQuery.getResultList();
 			
 		}catch(Exception exe) {
-			logger.error("Exception thrown while saving shopowner to the database");
+
 			exe.printStackTrace();
 		}
 		
@@ -72,24 +71,22 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 	
 	public Session getCurrentSession() {
 		
-		Session sessionObj;
+		Session sessionObj = null;
 		
 		try {
 			sessionObj = sessionFactory.getCurrentSession();
 		}
 		catch(Exception exe) {
 			
+			exe.printStackTrace();
 			
-			logger.error("Exception thrown while getting current session");
-			
-			throw(exe);
 		}
 		
 		return sessionObj;
 	}
 
 	@Override
-	public List<ShopOwner> findByEmail(String email) {
+	public ShopOwner findByEmail(String email) {
 		
 		currentSession = getCurrentSession();
 		
@@ -97,14 +94,14 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		
 		query.setParameter("userEmail", email);
 		
-		List<ShopOwner> resultList = query.getResultList();
-		
-		if(resultList.isEmpty()) {
+		ShopOwner result = (ShopOwner) query.getResultList().get(0);
+				
+		if(result == null) {
 			
 			return null;
 		}
 		else {
-			return resultList;
+			return result;
 		}
 		
 		

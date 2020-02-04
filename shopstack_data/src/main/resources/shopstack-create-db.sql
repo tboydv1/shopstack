@@ -1,10 +1,11 @@
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
+-- -----------------------------------------------------
 -- Schema shopstack
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `shopstack` ;
@@ -13,42 +14,6 @@ DROP SCHEMA IF EXISTS `shopstack` ;
 -- Schema shopstack
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
-USE `shopstack` ;
-
--- -----------------------------------------------------
--- Table `shopstack`.`user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopstack`.`user` ;
-
-CREATE TABLE IF NOT EXISTS `shopstack`.`user` (
-  `username` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
-  `enabled` TINYINT(1) NOT NULL,
-  `role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`username`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`VerificationToken`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
-
-CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `token` VARCHAR(45) NULL,
-  `expiry_date` DATE NULL,
-  `user_id` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_VerificationToken_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_VerificationToken_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `shopstack`.`user` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 USE `shopstack` ;
 
 -- -----------------------------------------------------
@@ -68,6 +33,23 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `shopstack`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`user` (
+  `user_id` INT(45) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- Table `shopstack`.`shop_owner`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopstack`.`shop_owner` ;
@@ -79,12 +61,12 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop_owner` (
   `address` VARCHAR(45) NULL DEFAULT NULL,
   `email` VARCHAR(45) NOT NULL,
   `contact_number` VARCHAR(45) NOT NULL,
-  `user_username` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`shop_owner_id`, `user_username`),
-  INDEX `fk_shop_owner_user1_idx` (`user_username` ASC),
+  `user_id` INT(45) NOT NULL,
+  PRIMARY KEY (`shop_owner_id`, `user_id`),
+  INDEX `fk_shop_owner_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_shop_owner_user1`
-    FOREIGN KEY (`user_username`)
-    REFERENCES `shopstack`.`user` (`username`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `shopstack`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -107,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`shop` (
   `website` VARCHAR(45) NULL DEFAULT NULL,
   `shop_owner_id` INT(11) NOT NULL,
   `date_created` DATETIME NOT NULL,
-  PRIMARY KEY (`shop_id`, `shop_owner_id`, `password`),
+  PRIMARY KEY (`shop_id`, `shop_owner_id`),
   INDEX `fk_shop_shop_owner1_idx` (`shop_owner_id` ASC),
   CONSTRAINT `fk_shop_shop_owner1`
     FOREIGN KEY (`shop_owner_id`)
@@ -297,6 +279,27 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`invoice` (
   CONSTRAINT `fk_transaction_item_1`
     FOREIGN KEY (`transaction_id`)
     REFERENCES `shopstack`.`transaction` (`transaction_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `shopstack`.`verification_token`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `token` VARCHAR(45) NULL DEFAULT NULL,
+  `expiry_date` DATE NULL DEFAULT NULL,
+  `user_id` INT(45) NOT NULL,
+  PRIMARY KEY (`id`, `user_id`),
+  INDEX `fk_verification_token_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_verification_token_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `shopstack`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

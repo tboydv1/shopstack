@@ -24,26 +24,18 @@ public class UserDaoImpl implements UserDao{
 
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
-	
-	private Session currentSession;
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+
 
 	@Override
 	public List<User> getUsers() {
 		
 		List<User> resultList = null;
-		
-		try {
-			logger.info("get current session");
-			
-			currentSession = sessionFactory.getCurrentSession();
-			
-		}
-		catch(Exception exe) {
-			logger.log(Level.SEVERE, "Execption thrown while getting current session" , exe);
-		}
+	
+		Session currentSession = sessionFactory.getCurrentSession();
 		
 		try {
 		
@@ -68,29 +60,38 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void saveUser(User theUser) {
-		
-		try {
-			logger.info("get current session");
 			
-			currentSession = sessionFactory.getCurrentSession();
-			
-		}
-		catch(Exception exe) {
-			logger.log(Level.SEVERE, "Execption thrown while getting current session" , exe);
-		}
+		Session currentSession = sessionFactory.getCurrentSession();
 		
 		try {
 		
-			currentSession.save(theUser);
+			currentSession.saveOrUpdate(theUser);
 			
 		}
 		catch(Exception exe) {
+			
 			logger.log(Level.SEVERE, "Exeception thrown while executing query" , exe);
 
 		}
 		
 		
 	}
+
+	@Override
+	public User loadUserByUsername(String text) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query query = currentSession.createQuery("from User u where u.username = :text");
+		
+		query.setParameter("text", text);
+		
+		User queryResult = (User) query.getResultList().get(0);
+		
+		return queryResult;
+	}
+	
+	
 
 	
 	

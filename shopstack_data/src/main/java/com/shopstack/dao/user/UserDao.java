@@ -9,4 +9,6 @@ public interface UserDao {
 	public List<User> getUsers();
 	
 	public void saveUser(User theUser);
+	
+	public User loadUserByUsername(String username);
 }

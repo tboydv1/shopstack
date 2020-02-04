@@ -51,7 +51,7 @@ public class ShopOwner {
 	private String contactNumber;
 	
 	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="user_username")
+	@JoinColumn(name="user_id")
 	private User userDetail;
 	
 	public ShopOwner() {

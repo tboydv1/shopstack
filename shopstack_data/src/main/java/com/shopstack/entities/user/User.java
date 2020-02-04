@@ -3,6 +3,8 @@ package com.shopstack.entities.user;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -16,8 +18,12 @@ public class User {
 
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_id")
+	private int userId;
+	
 	@NotNull
-	@Column(name="username")
+	@Column(name="username", unique=true)
 	private String username;
 	
 	@NotNull
@@ -33,20 +39,12 @@ public class User {
 	private ShopOwner shopOwner;
 	
 	
-//	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-//	@OneToMany(mappedBy = "userDetail",
-//				cascade= 
-//				{CascadeType.DETACH, CascadeType.MERGE,
-//				CascadeType.PERSIST,CascadeType.REFRESH})
-	
 	@NotNull
 	@Column(name="role")
 	private String role;
 	
 	public User() {
 		
-		
-		//set default enabled value to 0 
 		this.enabled = 0;
 	}
 	

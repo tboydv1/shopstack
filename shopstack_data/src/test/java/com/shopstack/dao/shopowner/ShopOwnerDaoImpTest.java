@@ -1,7 +1,8 @@
 package com.shopstack.dao.shopowner;
 
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
@@ -24,6 +26,7 @@ import com.shopstack.entities.user.User;
  * @author oluwatobi
  *
  */
+@Sql(scripts={"classpath:shopstack-create-db.sql"})
 @ContextConfiguration(classes= DataContextConfig.class)	
 @RunWith(SpringRunner.class)
 public class ShopOwnerDaoImpTest {
@@ -38,20 +41,7 @@ public class ShopOwnerDaoImpTest {
 	@Before
 	public void setUp() throws Exception {
 		
-//	  String user = "shopstack_admin";
-//	  String password = "shopStack1.0";
-//	  String jdbcUrl = "jdbc:mysql://localhost:3306/shopstack?useSSL=false&serverTimezone=UTC";
-//	
-//
-//	  Connection myCon = DriverManager.getConnection(jdbcUrl, user, password);
-//
-//      //Initialize the script runner
-//      ScriptRunner sr = new ScriptRunner(myCon);
-//      //Creating a reader object
-//      Reader reader = new BufferedReader(new FileReader("shopstack-create-db.sql"));
-//      //Running the script
-//      sr.runScript(reader);
-      
+     
 	}
 
 	@Test
@@ -70,28 +60,44 @@ public class ShopOwnerDaoImpTest {
 	}
 
 	@Test
-	public void addNewShopOwner_cascadeSave_username_password() {
+	public void addNewShopOwner() {
 		
-	
+		//persist shop owners to the database
+		logger.info("Persist shop owner objects to the database test!");
+		
 	try {
-	
-		User username1 = new User("simeon", "test123", 1, "ROLE_MANAGER");
 		
 		ShopOwner tempShopOwner1 =  new ShopOwner("Simeon", "ocean", "743 round street",
 				"simeon@mail.com", "070746536653");
+		
+		User username1 = new User("simeon", "test123", 1, "ROLE_MANAGER");
 		
 		tempShopOwner1.setUserDetail(username1);
 		
 		shopOwnerDaoImp.saveShopOwner(tempShopOwner1);
 		
-		User username2 = new User("tobi", "test123", 1, "ROLE_MANAGER");
+		//retrieve entity from database
+		tempShopOwner1 = shopOwnerDaoImp.findByEmail("simeon@mail.com");
 		
+		assertThat(tempShopOwner1, is(not(nullValue())));
+		assertThat(tempShopOwner1.getUserDetail(), is(not(nullValue())));
+		assertThat(tempShopOwner1.getFirstName(), is("Simeon"));
+		
+				
 		ShopOwner tempShopOwner2 =  new ShopOwner("Tobi", "Tosho", "743 round street",
 				"tboydv1@gmail.com", "070746536653");
 		
+		
+		User username2 = new User("tobi", "test123", 1, "ROLE_MANAGER");
 		tempShopOwner2.setUserDetail(username2);
 		
-		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);	
+		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);
+		
+		tempShopOwner2 = shopOwnerDaoImp.findByEmail("tboydv1@gmail.com");
+		
+		assertThat(tempShopOwner2, is(not(nullValue())));
+		assertThat(tempShopOwner2.getUserDetail(), is(not(nullValue())));
+		assertThat(tempShopOwner2.getFirstName(), is("Tobi"));
 		
 		
 	}
@@ -105,30 +111,34 @@ public class ShopOwnerDaoImpTest {
 	@Test
 	public void getAllShopOwnersFromTheDatabase() {
 		
+		//add shop owners to the database
+		addNewShopOwner();
 		
-		//get all shopowners saved in the database
-		logger.info("Getting shopowners from the database");
-		List<ShopOwner> result = shopOwnerDaoImp.getShopOwners();
+		List<ShopOwner> resultList = shopOwnerDaoImp.getShopOwners();
+		assertTrue(resultList.size() == 2);
 		
-		for(ShopOwner person: result) {
-			
-			logger.info(person.toString());
-		}
 		
 	}
 	
 	@Test
 	public void findShopOwnerByEmail() {
 		
-		List<ShopOwner> result = shopOwnerDaoImp.findByEmail("tboydv1@gmail.com");
+		//add shop owners to the database
+		addNewShopOwner();
 		
-		assertTrue(!(result == null));
+		ShopOwner theShopOwner = shopOwnerDaoImp.findByEmail("tboydv1@gmail.com");
 		
-		logger.info("Found: " + result.get(0).toString());
+		assertThat(theShopOwner, is(not(nullValue())));
 		
-		assertEquals("tboydv1@gmail.com", result.get(0).getEmail());
+		assertThat(theShopOwner.getFirstName(), is("Tobi"));
 		
+		assertThat(theShopOwner.getUserDetail().getUsername(), is("tobi"));
+		
+
 	}
+	
+	
+	
 	
 	
 	
