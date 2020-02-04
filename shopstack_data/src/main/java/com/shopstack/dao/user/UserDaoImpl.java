@@ -86,7 +86,13 @@ public class UserDaoImpl implements UserDao{
 		
 		query.setParameter("text", text);
 		
-		User queryResult = (User) query.getResultList().get(0);
+		User queryResult;
+		
+		try {
+			queryResult = (User) query.getResultList().get(0);
+		}catch(Exception e) {
+			queryResult = null;
+		}
 		
 		return queryResult;
 	}

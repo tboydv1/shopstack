@@ -46,7 +46,7 @@ public class ShopOwner {
 	@Column(name="email")
 	private String email;
 	
-	@NotNull
+	
 	@Column(name="contact_number")
 	private String contactNumber;
 	
@@ -61,7 +61,7 @@ public class ShopOwner {
 
 	public ShopOwner(@NotNull(message = "is required") @Size(min = 1) String firstName,
 			@NotNull(message = "is required") @Size(min = 1) String lastName, String address,
-			@Email @NotNull String email, @NotNull String contactNumber) {
+			@Email @NotNull String email, String contactNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -86,15 +86,22 @@ public class ShopOwner {
 	}
 
 	public void setFirstName(String first_name) {
-		this.firstName = first_name;
+		if(first_name != null)
+			this.firstName = first_name;
+		else
+			this.lastName = null;
 	}
 
 	public String getLastName() {
+		
 		return lastName;
 	}
 
 	public void setLastName(String last_name) {
-		this.lastName = last_name;
+		if(last_name != null)
+			this.lastName = last_name;
+		else
+			this.lastName = null;
 	}
 
 	public String getEmail() {
@@ -102,7 +109,9 @@ public class ShopOwner {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		
+		if(email != null)
+			this.email = email;
 	}
 
 	public String getAddress() {
@@ -110,7 +119,8 @@ public class ShopOwner {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		if(address != null)
+			this.address = address;
 	}
 	
 
@@ -119,11 +129,15 @@ public class ShopOwner {
 	}
 
 	public void setUserDetail(User userDetail) {
-		this.userDetail = userDetail;
+		
+		if(userDetail != null)
+			this.userDetail = userDetail;
 	}
 
 	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
+		
+		if(contactNumber != null)
+			this.contactNumber = contactNumber;
 	}
 	
 	public String getContactNumber() {
