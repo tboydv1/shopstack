@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
 import com.shopstack.entities.user.User;
+import com.shopstack.entities.user.VerificationToken;
 
 
 /**
@@ -30,6 +31,9 @@ public class UserDaoImplTest {
 
 	@Autowired
 	private UserDao userDaoImpl;
+	
+	@Autowired 
+	TokenRepository tokenRepo;
 
 	@Before
 	public void setUp() throws Exception {
@@ -96,6 +100,37 @@ public class UserDaoImplTest {
 		assertThat(tempUser.getEnabled(), is(0));
 		
 	
+	}
+	
+	@Test
+	public void generateTokenForUserTest() {
+		
+		User tempUser = new User("tobi","tobi123",1,"ROLE_USER");
+		
+		userDaoImpl.saveUser(tempUser);
+		
+		VerificationToken token = new VerificationToken("iuhiub67576467668jhgkr68i775l", tempUser);
+
+		tokenRepo.save(token);
+		
+	}
+	
+	@Test
+	public void getVerificationTokenForUser() {
+		
+		generateTokenForUserTest();
+		
+		VerificationToken result = tokenRepo.findByToken("iuhiub67576467668jhgkr68i775l");
+		
+		assertThat(result.getUser().getUsername(), is("tobi"));
+		
+	}
+	
+	@Test
+	public void getNonExistingUserTest() {
+		
+		userDaoImpl.loadUserByUsername("tope");
+		
 	}
 	
 	

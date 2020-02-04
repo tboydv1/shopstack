@@ -73,7 +73,7 @@ public class ShopOwnerServiceImplTest {
 		when(shopOwnerServiceImpl.findByEmail("tboydv1@gmail.com")).thenReturn(isA(ShopOwner.class));
 		shopOwnerServiceImpl.findByEmail("tboydv1@gmail.com");
 		
-		verify(shopOwnerServiceImpl, times(1));
+		verify(shopOwnerServiceImpl, times(1)).findByEmail("tboydv1@gmail.com");
 		
 	}
 	

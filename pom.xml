@@ -43,14 +43,7 @@
 			    <version>4.12</version>
 			    <scope>test</scope>
 			</dependency>
-		
-			<dependency>
-			    <groupId>org.junit.platform</groupId>
-			    <artifactId>junit-platform-launcher</artifactId>
-			    <version>1.5.2</version>
-			    <scope>test</scope>
-			</dependency>
-			
+
 			<dependency>
 			    <groupId>org.mockito</groupId>
 			    <artifactId>mockito-core</artifactId>
@@ -68,19 +61,20 @@
 		
 		<!-- Java mail sender -->
 
-<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>5.0.1.RELEASE</version>
-</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 	<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-		</dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>5.0.1.RELEASE</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.6.0</version>
+    <scope>test</scope>
+</dependency>
 	
 
 	

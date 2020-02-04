@@ -22,7 +22,7 @@ import com.shopstack.entities.shopowner.ShopOwner;
 @Transactional
 public class ShopOwnerDaoImp implements  ShopOwnerDao {
 
-	private Logger logger = Logger.getLogger(ShopOwnerDao.class);
+	private Logger logger = Logger.getLogger(ShopOwnerDaoImp.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -63,6 +63,7 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		}catch(Exception exe) {
 
 			exe.printStackTrace();
+			resultList = null;
 		}
 		
 		return resultList;
@@ -90,19 +91,20 @@ public class ShopOwnerDaoImp implements  ShopOwnerDao {
 		
 		currentSession = getCurrentSession();
 		
+		
 		Query query = currentSession.createQuery("from ShopOwner s where s.email = :userEmail");
+	
 		
 		query.setParameter("userEmail", email);
 		
-		ShopOwner result = (ShopOwner) query.getResultList().get(0);
-				
-		if(result == null) {
-			
-			return null;
+		ShopOwner savedUser = null;
+		
+		try {
+			savedUser = (ShopOwner)query.getResultList().get(0);
+		}catch(Exception e) {
+			savedUser = null;
 		}
-		else {
-			return result;
-		}
+		return savedUser;
 		
 		
 	}

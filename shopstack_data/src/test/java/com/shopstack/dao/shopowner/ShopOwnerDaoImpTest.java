@@ -3,6 +3,7 @@ package com.shopstack.dao.shopowner;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -135,6 +136,15 @@ public class ShopOwnerDaoImpTest {
 		assertThat(theShopOwner.getUserDetail().getUsername(), is("tobi"));
 		
 
+	}
+	
+	@Test
+	public void findShopOwnerNotExistingTest() {
+		
+		ShopOwner result = shopOwnerDaoImp.findByEmail("tboydv1@gmail.com");
+		
+		assertNull(result);
+		
 	}
 	
 	
