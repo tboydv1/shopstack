@@ -21,6 +21,23 @@
 
 	<!-- Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
+	
+	<context:property-placeholder location="classpath:email.properties" />
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	  	<property name="host" value="${smtp.host}"/>
+	  	<property name="port" value="${smtp.port}"/>
+	  	<property name="username" value="${smtp.user}"/>
+	 	<property name="password" value="${smtp.pass}"/>
+	  	<property name="javaMailProperties">
+			<props>
+			    <prop key="mail.transport.protocol">smtp</prop>
+			    <prop key="mail.smtp.auth">true</prop>
+			    <prop key="mail.smtp.starttls.enable">true</prop>
+			    <prop key="mail.debug">true</prop>
+			</props>
+  		</property>
+    </bean>
 
 
 	<!-- Define Spring MVC view resolver -->
@@ -29,6 +46,8 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<mvc:resources location="/resources/" mapping ="/resources/**"></mvc:resources>
 	
 
             

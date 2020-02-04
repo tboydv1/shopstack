@@ -65,7 +65,7 @@ public class ShopOwnerController {
 		theModelMap.addAttribute("user", new User());
 		theModelMap.addAttribute("shopOwner", new ShopOwner());
 
-		return "onboarding";
+		return "register";
 	}
 	
 	@GetMapping("/process")
@@ -80,7 +80,7 @@ public class ShopOwnerController {
 		
 		if(ownerBindingResult.hasErrors() && userBindingResult.hasErrors()) {
 			
-			return "onboarding";
+			return "register";
 		}
 
 		theShopOwner.setUserDetail(newUser);
@@ -98,7 +98,7 @@ public class ShopOwnerController {
 			model.addAttribute("error","There is already an account with this email: " + theShopOwner.getEmail());
 			logger.info("Email already exists");
 			
-			return "onboarding";
+			return "register";
 			
 		}else {
 			
@@ -135,16 +135,23 @@ public class ShopOwnerController {
 		
 		Locale locale = request.getLocale();
 		
-		VerificationToken verificationToken = userServiceImpl.getVerificationToken(token);
+		VerificationToken verificationToken = userServiceImpl.getUserVerificationToken(token);
+		
+		logger.info("Fetched token from the database: "+ verificationToken);
 		
 		if(verificationToken == null) {
+			
 			String message = messages.getMessage("auth.messsage.invalidToken", null, locale);
 			model.addAttribute("message", message);
 			
-			return "redirect:/confirm-failed?lang="+locale.getLanguage();
+			return "redirect:/access-denied?lang="+locale.getLanguage();
 		}
 		
+		
 		User user = verificationToken.getUser();
+		
+		logger.info("getting user attached to verification token" + user);
+		
 		Calendar cal = Calendar.getInstance();
 		
 		if((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
@@ -152,8 +159,10 @@ public class ShopOwnerController {
 			String message = messages.getMessage("auth.messsage.invalidToken", null, locale);
 			model.addAttribute("message", message);
 			
-			return "redirect:/confirm-failed?lang="+locale.getLanguage();
+			return "redirect:/access-denied?lang="+locale.getLanguage();
 		}
+		
+		logger.info("updating user info in the database");
 		
 		user.setEnabled(1);
 		userServiceImpl.saveRegisteredUser(user);
