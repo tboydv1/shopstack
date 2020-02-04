@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.shopstack.entities.shopowner.ShopOwner;
 
 @Entity
@@ -21,82 +23,132 @@ public class Shop {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="shop_id")
-	private int shop_id;
+	private int shopId;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="category")
+	private String category;
+	
+	@Column(name="shop_name")
+	private String shopName;
 	
 	@Column(name="logo")
-	private String logoPath;
+	private String logoUri;
 	
 	@Column(name="address")
 	private String address;
 	
+	@Column(name="shop_email")
+	private String shopEmail;
+	
 	@Column(name="website")
 	private String website;
-	//add variable to reference shop owner id
-	@Column(name="password")
-	private String password;
+
 	
 	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.PERSIST,
 						CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="shop_owner_id")
 	private ShopOwner shopOwner;
 	
-	@Column(name="date_created")
+	@CreationTimestamp
+	@Column(name="date_created", updatable= false)	
 	private Date dateCreated;
 	
-	public Shop(String name, String address, String website, String password, Date date_created) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.website = website;
-		this.password = password;
-		this.dateCreated = date_created;
+	public Shop() {
+		
 	}
 	
-	public int getShop_id() {
-		return shop_id;
+	public Shop(String category, String shopName, ShopOwner shopOwner, Date dateCreated) {
+		super();
+		this.category = category;
+		this.shopName = shopName;
+		this.shopOwner = shopOwner;
+		this.dateCreated = dateCreated;
 	}
-	public void setShop_id(int shop_id) {
-		this.shop_id = shop_id;
+
+
+	public int getShopId() {
+		return shopId;
 	}
-	public String getName() {
-		return name;
+
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String getCategory() {
+		return category;
 	}
-	public String getLogoPath() {
-		return logoPath;
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public void setLogoPath(String logoPath) {
-		this.logoPath = logoPath;
+
+	public String getShopName() {
+		return shopName;
 	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getLogoUri() {
+		return logoUri;
+	}
+
+	public void setLogoUri(String logoUri) {
+		this.logoUri = logoUri;
+	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getShopEmail() {
+		return shopEmail;
+	}
+
+	public void setShopEmail(String shopEmail) {
+		this.shopEmail = shopEmail;
+	}
+
 	public String getWebsite() {
 		return website;
 	}
+
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	public String getPassword() {
-		return password;
+
+	public ShopOwner getShopOwner() {
+		return shopOwner;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setShopOwner(ShopOwner shopOwner) {
+		this.shopOwner = shopOwner;
 	}
-	public Date getDate_created() {
+
+	public Date getDateCreated() {
 		return dateCreated;
 	}
-	public void setDate_created(Date date_created) {
-		this.dateCreated = date_created;
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
+
+	@Override
+	public String toString() {
+		return "Shop [shopId=" + shopId + ", category=" + category + ", shopName=" + shopName + ", logoUri=" + logoUri
+				+ ", address=" + address + ", shopEmail=" + shopEmail + ", website=" + website + ", shopOwner="
+				+ shopOwner + ", dateCreated=" + dateCreated + "]";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

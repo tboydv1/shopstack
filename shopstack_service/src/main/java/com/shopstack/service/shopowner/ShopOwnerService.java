@@ -1,9 +1,12 @@
 package com.shopstack.service.shopowner;
 
+import java.util.List;
+
 import com.shopstack.entities.shopowner.ShopOwner;
 
 public interface ShopOwnerService {
 
-	public void addShopOwner(ShopOwner shopOwner);
-		
+	public ShopOwner addShopOwner(ShopOwner shopOwner);
+	
+	public ShopOwner findByEmail(String email);
 }

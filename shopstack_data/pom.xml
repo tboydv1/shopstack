@@ -23,44 +23,43 @@
   
    <!-- data source dependency -->
   
-	  	<dependency>
-		    <groupId>com.mchange</groupId>
-		    <artifactId>c3p0</artifactId>
-		    <version>0.9.5.5</version>
-		</dependency>
+  	<dependency>
+	    <groupId>com.mchange</groupId>
+	    <artifactId>c3p0</artifactId>
+	    <version>0.9.5.5</version>
+	</dependency>
 	
-	<!-- spring orm depenedency -->
-  		
-  		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-orm</artifactId>
-		    <version>5.2.2.RELEASE</version>
-		</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-orm</artifactId>
+    <version>5.2.2.RELEASE</version>
+</dependency>
   	
   <!-- hibernate dependecy -->
   	
-  		 <dependency>
-		    <groupId>org.hibernate.orm</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>6.0.0.Alpha4</version>
-		</dependency>
+ 		 <dependency>
+	    <groupId>org.hibernate.orm</groupId>
+	    <artifactId>hibernate-core</artifactId>
+	    <version>6.0.0.Alpha4</version>
+	</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.validation/com.springsource.javax.validation -->
 		
 	<!-- mysql db connector -->
 	
-		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.18</version>
-		</dependency>
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.18</version>
+	</dependency>
 	
 	<!-- spring jdbc driver -->
 		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>5.2.2.RELEASE</version>
-		</dependency>	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>5.2.2.RELEASE</version>
+	</dependency>	
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 	<dependency>
 	    <groupId>org.hibernate.validator</groupId>
@@ -74,12 +73,20 @@
 	    <version>1.7</version>
 	</dependency>
 	
-	<!-- Dependency for running sql script from a file -->
-	  <dependency>
+	
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+	<dependency>
+	    <groupId>javax.validation</groupId>
+	    <artifactId>validation-api</artifactId>
+	    <version>2.0.1.Final</version>
+	</dependency>
+	
+	<!-- Script runner dependency -->
+		<dependency>
 		   <groupId>org.mybatis</groupId>
 		   <artifactId>mybatis</artifactId>
 		   <version>3.4.5</version>
-	</dependency>
+		</dependency>
   
 		
   </dependencies>

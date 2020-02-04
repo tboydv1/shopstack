@@ -1,14 +1,19 @@
 package com.shopstack.entities.shopowner;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.shopstack.entities.user.User;
 
 
 
@@ -41,46 +46,36 @@ public class ShopOwner {
 	@Column(name="email")
 	private String email;
 	
-	
-//	@Size(max=13)
 	@NotNull
 	@Column(name="contact_number")
 	private String contactNumber;
 	
-//	@Column(name="role")
-//	private String role;
-	
-	@NotNull
-	@Column(name="username")
-	private String userName;
-	
-	@NotNull
-	@Column(name="password")
-	private String password;
-	
-	//constructor should initialize  all instance variables
-	public int getId() {
-		return id;
-	}
+	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private User userDetail;
 	
 	public ShopOwner() {
 		
 	}
-
 	
+
 	public ShopOwner(@NotNull(message = "is required") @Size(min = 1) String firstName,
 			@NotNull(message = "is required") @Size(min = 1) String lastName, String address,
-			@Email @NotNull String email, @NotNull String contactNumber, @NotNull String userName,
-			@NotNull String password) {
+			@Email @NotNull String email, @NotNull String contactNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.email = email;
 		this.contactNumber = contactNumber;
-		this.userName = userName;
-		this.password = password;
+	
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
 
 	public void setId(int id) {
 		this.id = id;
@@ -118,30 +113,13 @@ public class ShopOwner {
 		this.address = address;
 	}
 	
-	
 
-//	public String getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(String role) {
-//		this.role = role;
-//	}
-	
-	public String getUserName() {
-		return userName;
+	public User getUserDetail() {
+		return userDetail;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserDetail(User userDetail) {
+		this.userDetail = userDetail;
 	}
 
 	public void setContactNumber(String contactNumber) {
