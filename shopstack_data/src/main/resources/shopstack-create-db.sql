@@ -42,7 +42,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(45) NOT NULL,
   `expiry_date` DATE NULL,
   `ss_user_id` INT(11) NOT NULL,
@@ -62,7 +62,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `shopstack`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`category` (
-  `category_id` INT(11) NOT NULL,
+  `category_id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC))
@@ -95,7 +95,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`ss_supplier` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`ss_supplier` (
-  `supplier_id` INT(11) NOT NULL,
+  `supplier_id` INT(11) NOT NULL AUTO_INCREMENT,
   `ss_display_name` VARCHAR(45) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -117,7 +117,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`ss_product` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`ss_product` (
-  `product_code` INT(11) NOT NULL,
+  `product_code` INT(11) NOT NULL AUTO_INCREMENT,
   `product_name` VARCHAR(45) NOT NULL,
   `purchase_date` DATE NOT NULL,
   `category_id` INT(11) NOT NULL,
