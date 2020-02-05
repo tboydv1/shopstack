@@ -42,7 +42,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(45) NOT NULL,
   `expiry_date` DATE NULL,
   `ss_user_id` INT(11) NOT NULL,
