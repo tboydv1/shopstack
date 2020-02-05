@@ -62,13 +62,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `shopstack`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`category` (
-  `category_id` INT(11) NOT NULL,
+  `category_id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC))
 ENGINE = InnoDB;
 
-USE `shopstack` ;
+ USE `shopstack` ;
 
 -- -----------------------------------------------------
 -- Table `shopstack`.`customer`
