@@ -4,6 +4,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+
 -- Schema shopstack
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `shopstack` ;
@@ -36,7 +37,7 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`verification_token`
+-- Table `shopstack`.`verification_token`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
 
@@ -52,6 +53,19 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
     REFERENCES `shopstack`.`ss_users` (`ss_user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopstack`.`category` ;
+
+CREATE TABLE IF NOT EXISTS `shopstack`.`category` (
+  `category_id` INT(11) NOT NULL,
+  `category_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC))
 ENGINE = InnoDB;
 
 USE `shopstack` ;
@@ -82,10 +96,16 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`product` (
   `product_name` VARCHAR(45) NOT NULL,
   `purchase_date` DATE NOT NULL,
   `expiry_date` DATE NULL DEFAULT NULL,
-  `category` VARCHAR(45) NOT NULL,
   `rate` DOUBLE NOT NULL,
   `decription` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`product_code`))
+  `category_id` INT(11) NOT NULL,
+  PRIMARY KEY (`product_code`),
+  INDEX `fk_product_category1_idx` (`category_id` ASC),
+  CONSTRAINT `fk_product_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `shopstack`.`category` (`category_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
