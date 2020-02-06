@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shopstack.dao.shop.ShopDao;
-import com.shopstack.entities.shop.Shop;
+import com.shopstack.dao.business.BusinessDao;
+import com.shopstack.entities.business.Business;
 
 
 /**
@@ -24,18 +24,18 @@ import com.shopstack.entities.shop.Shop;
 public class ShopController {
 
 	@Autowired	
-	private ShopDao shopDaoImpl;
+	private BusinessDao shopDaoImpl;
 	
 	
 	@GetMapping("/create")
 	public String showFormToAddNewShop(Model model) {
 		
-		model.addAttribute("shop", new Shop());
+		model.addAttribute("shop", new Business());
 		return "shop-form";
 	}
 	
 	@PostMapping("/process")
-	public String saveShop(@Valid @ModelAttribute("shop")Shop newShopEntry, BindingResult resultBind, Model model) {
+	public String saveShop(@Valid @ModelAttribute("shop")Business newShopEntry, BindingResult resultBind, Model model) {
 		
 		if(resultBind.hasErrors()) {
 			model.addAttribute("error","error creating new shop");
@@ -43,7 +43,7 @@ public class ShopController {
 			return "shop-form";
 		}
 		
-		shopDaoImpl.addShop(newShopEntry);
+		shopDaoImpl.saveBusiness(newShopEntry);
 		
 		return "redirect:/shop-owner/dashboard";
 	}

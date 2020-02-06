@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.shopstack.controller.event.OnRegistrationCompleteEvent;
-import com.shopstack.entities.shopowner.ShopOwner;
-import com.shopstack.entities.user.User;
+import com.shopstack.entities.user.BusinessUser;
 import com.shopstack.entities.user.VerificationToken;
-import com.shopstack.service.shopowner.ShopOwnerServiceImpl;
-import com.shopstack.service.user.UserService;
+import com.shopstack.service.user.BussinessUserService;
 
 @Controller
 @RequestMapping("/shop-owner")
@@ -39,11 +37,11 @@ public class ShopOwnerController {
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
-	@Autowired
-	private ShopOwnerServiceImpl shopOwnerServiceImpl;
+//	@Autowired
+//	private ShopOwnerServiceImpl shopOwnerServiceImpl;
 	
 	@Autowired
-	private UserService userServiceImpl;
+	private BussinessUserService userServiceImpl;
 	
 	@Autowired
 	private MessageSource messages;
@@ -59,67 +57,67 @@ public class ShopOwnerController {
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 	
-	@GetMapping("/register")
-	public String showRegisterForm(ModelMap theModelMap) {
-		
-		theModelMap.addAttribute("user", new User());
-		theModelMap.addAttribute("shopOwner", new ShopOwner());
-
-		return "register";
-	}
-	
-	@GetMapping("/process")
-	public String saveShopOwner(
-			@Valid @ModelAttribute("shopOwner") ShopOwner theShopOwner,
-			BindingResult ownerBindingResult, 
-				@Valid @ModelAttribute("user") User newUser, 
-				BindingResult userBindingResult, WebRequest request, Model model) {
-		
-		logger.info("New shop owner form entry" + theShopOwner);
-		logger.info("Validating binding result");
-		
-		if(ownerBindingResult.hasErrors() && userBindingResult.hasErrors()) {
-			
-			return "register";
-		}
-
-		theShopOwner.setUserDetail(newUser);
-		newUser.setShopOwner(theShopOwner);
-		
-		System.out.println(theShopOwner);
-		System.out.println(theShopOwner.getUserDetail());
-		
-		
-		//check if user email already exist
-		ShopOwner registered = 	shopOwnerServiceImpl.addShopOwner(theShopOwner);
-		
-		if(registered == null) {
-			
-			model.addAttribute("error","There is already an account with this email: " + theShopOwner.getEmail());
-			logger.info("Email already exists");
-			
-			return "register";
-			
-		}else {
-			
-			try {
-				String appUrl = request.getContextPath();
-				logger.info("context path is: "+appUrl);
-				eventPublisher.publishEvent(new 
-						OnRegistrationCompleteEvent(registered.getUserDetail(), 
-										request.getLocale(), appUrl));
-			}catch(Exception EventExcepton) {
-				
-				EventExcepton.printStackTrace();
-				
-			}
-			
-			return "confirmation";
-		}
-		
-	
-		
-	}
+//	@GetMapping("/register")
+//	public String showRegisterForm(ModelMap theModelMap) {
+//		
+//		theModelMap.addAttribute("user", new BusinessUser());
+//		theModelMap.addAttribute("shopOwner", new ShopOwner());
+//
+//		return "register";
+//	}
+//	
+//	@GetMapping("/process")
+//	public String saveShopOwner(
+//			@Valid @ModelAttribute("shopOwner") ShopOwner theShopOwner,
+//			BindingResult ownerBindingResult, 
+//				@Valid @ModelAttribute("user") BusinessUser newUser, 
+//				BindingResult userBindingResult, WebRequest request, Model model) {
+//		
+//		logger.info("New shop owner form entry" + theShopOwner);
+//		logger.info("Validating binding result");
+//		
+//		if(ownerBindingResult.hasErrors() && userBindingResult.hasErrors()) {
+//			
+//			return "register";
+//		}
+//
+//		theShopOwner.setUserDetail(newUser);
+//		newUser.setShopOwner(theShopOwner);
+//		
+//		System.out.println(theShopOwner);
+//		System.out.println(theShopOwner.getUserDetail());
+//		
+//		
+//		//check if user email already exist
+//		ShopOwner registered = 	shopOwnerServiceImpl.addShopOwner(theShopOwner);
+//		
+//		if(registered == null) {
+//			
+//			model.addAttribute("error","There is already an account with this email: " + theShopOwner.getEmail());
+//			logger.info("Email already exists");
+//			
+//			return "register";
+//			
+//		}else {
+//			
+//			try {
+//				String appUrl = request.getContextPath();
+//				logger.info("context path is: "+appUrl);
+//				eventPublisher.publishEvent(new 
+//						OnRegistrationCompleteEvent(registered.getUserDetail(), 
+//										request.getLocale(), appUrl));
+//			}catch(Exception EventExcepton) {
+//				
+//				EventExcepton.printStackTrace();
+//				
+//			}
+//			
+//			return "confirmation";
+//		}
+//		
+//	
+//		
+//	}
 	
 	@GetMapping("/confirm")
 	public String showSuccessPage() {
@@ -148,9 +146,9 @@ public class ShopOwnerController {
 		}
 		
 		
-		User user = verificationToken.getUser();
+		BusinessUser businessUser = verificationToken.getUser();
 		
-		logger.info("getting user attached to verification token" + user);
+		logger.info("getting user attached to verification token" + businessUser);
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -164,8 +162,8 @@ public class ShopOwnerController {
 		
 		logger.info("updating user info in the database");
 		
-		user.setEnabled(1);
-		userServiceImpl.saveRegisteredUser(user);
+		businessUser.setEnabled(1);
+		userServiceImpl.saveRegisteredUser(businessUser);
 	    return "redirect:/login?lang=" + request.getLocale().getLanguage(); 
 	}
 	
