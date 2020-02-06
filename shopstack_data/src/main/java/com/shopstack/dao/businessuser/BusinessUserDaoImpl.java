@@ -64,8 +64,9 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		try {
-		
-			currentSession.saveOrUpdate(theUser);
+			
+			if(theUser != null)
+				currentSession.saveOrUpdate(theUser);
 			
 		}
 		catch(Exception exe) {

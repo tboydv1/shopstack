@@ -1,4 +1,4 @@
-package com.shopstack.service.user;
+package com.shopstack.service.businessuser;
 
 import com.shopstack.entities.user.BusinessUser;
 import com.shopstack.entities.user.VerificationToken;

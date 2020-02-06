@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.entities.user.BusinessUser;
 import com.shopstack.entities.user.VerificationToken;
+import com.shopstack.service.businessuser.BussinessUserService;
 
 
 @ContextConfiguration(locations = "classpath:/service-layer-context.xml")

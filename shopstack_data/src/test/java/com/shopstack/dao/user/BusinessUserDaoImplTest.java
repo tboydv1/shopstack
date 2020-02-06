@@ -31,7 +31,7 @@ import com.shopstack.entities.user.VerificationToken;
 public class BusinessUserDaoImplTest {
 
 	@Autowired
-	private BusinessUserDao userDaoImpl;
+	private BusinessUserDao businessUserDaoImpl;
 //	
 //	@Autowired 
 //	TokenRepository tokenRepo;
@@ -54,6 +54,10 @@ public class BusinessUserDaoImplTest {
 		BusinessUser tempUser = new BusinessUser("Oluwatobi", "Omotosho", "tboydv1@gmail.com",
 				"070598584784", "testpass", 0);
 		
+		businessUserDaoImpl.saveUser(tempUser);
+		
+		
+		
 		
 		
 		
@@ -64,11 +68,7 @@ public class BusinessUserDaoImplTest {
 	public void getUsersTest() {
 		
 		//add shop owner to the database
-		addNewUserTest();
 		
-		List<BusinessUser> result = userDaoImpl.getUsers();
-		
-		assertThat(result.size(), is(2));
 		
 	}
 	

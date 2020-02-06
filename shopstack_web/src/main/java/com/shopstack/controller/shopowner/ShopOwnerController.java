@@ -26,7 +26,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.shopstack.controller.event.OnRegistrationCompleteEvent;
 import com.shopstack.entities.user.BusinessUser;
 import com.shopstack.entities.user.VerificationToken;
-import com.shopstack.service.user.BussinessUserService;
+import com.shopstack.service.businessuser.BussinessUserService;
 
 @Controller
 @RequestMapping("/shop-owner")

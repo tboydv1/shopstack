@@ -103,9 +103,7 @@ public class BusinessUser {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+
 
 	public String getFirstName() {
 		return firstName;
