@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shopstack.entities.user.User;
+import com.shopstack.entities.user.BusinessUser;
 
 
 /**
@@ -20,7 +20,7 @@ import com.shopstack.entities.user.User;
  */
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao{
+public class BusinessUserDaoImpl implements BusinessUserDao{
 
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
@@ -31,9 +31,9 @@ public class UserDaoImpl implements UserDao{
 
 
 	@Override
-	public List<User> getUsers() {
+	public List<BusinessUser> getUsers() {
 		
-		List<User> resultList = null;
+		List<BusinessUser> resultList = null;
 	
 		Session currentSession = sessionFactory.getCurrentSession();
 		
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao{
 		
 			logger.info("getting list of users from the database");
 			
-			Query<User> query = currentSession.createQuery("from User", User.class);
+			Query<BusinessUser> query = currentSession.createQuery("from User", BusinessUser.class);
 			
 			logger.info("Executing query");
 			resultList = query.getResultList();
@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public void saveUser(User theUser) {
+	public void saveUser(BusinessUser theUser) {
 			
 		Session currentSession = sessionFactory.getCurrentSession();
 		
@@ -77,19 +77,20 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 
+
+
 	@Override
-	public User loadUserByUsername(String text) {
-		
+	public BusinessUser loadUserByEmail(String email) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		Query query = currentSession.createQuery("from User u where u.username = :text");
 		
-		query.setParameter("text", text);
+		query.setParameter("text", email);
 		
-		User queryResult;
+		BusinessUser queryResult;
 		
 		try {
-			queryResult = (User) query.getResultList().get(0);
+			queryResult = (BusinessUser) query.getResultList().get(0);
 		}catch(Exception e) {
 			queryResult = null;
 		}

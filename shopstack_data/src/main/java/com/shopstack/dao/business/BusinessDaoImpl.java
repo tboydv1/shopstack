@@ -1,21 +1,19 @@
-package com.shopstack.dao.shop;
+package com.shopstack.dao.business;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shopstack.entities.shop.Shop;
+import com.shopstack.entities.business.Business;
 
 @Repository
 @Transactional
-public class ShopDaoImpl implements ShopDao {
+public class BusinessDaoImpl implements BusinessDao {
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
 
@@ -23,43 +21,17 @@ public class ShopDaoImpl implements ShopDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void addShop(Shop tempShop) {
+	public void saveBusiness(Business theBusiness) {
 		
 		Session currentSession = getCurrentSession();
 		
-		currentSession.save(tempShop);
+		currentSession.save(theBusiness);
 		
 		
 	}
 
-	@Override
-	public void deleteShop(int shopId) {
-		// TODO Auto-generated method stub
-		
-		
-		
-	}
 
-	@Override
-	public void updateShop() {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
-	}
 
-	@Override
-	public List<Shop> getShops() {
-			
-		Session currentSession = getCurrentSession();
-		
-		Query query = currentSession.createQuery("from Shop");
-		
-		List<Shop> resultList = query.getResultList();
-		
-		return resultList;
-	}
 	
 	public Session getCurrentSession() {
 		Session currentSession = null;
@@ -73,6 +45,24 @@ public class ShopDaoImpl implements ShopDao {
 		}
 		
 		return currentSession;
+	}
+
+
+
+
+	@Override
+	public void deleteBusiness(int businessId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void updateBusiness() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
