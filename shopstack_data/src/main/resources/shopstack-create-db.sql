@@ -17,10 +17,10 @@ USE `shopstack` ;
 -- -----------------------------------------------------
 -- Table `mydb`.`category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopstack`.`category` ;
+DROP TABLE IF EXISTS `shopstack`.`product_category` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`category` (
-  `category_id` INT(11) NOT NULL,
+  `category_id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `category_name_UNIQUE` (`category_name` ASC))
