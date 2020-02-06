@@ -1,9 +1,8 @@
-package com.shopstack.dao.user;
+package com.shopstack.dao.businessuser;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,9 +14,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
-import com.shopstack.dao.businessuser.BusinessUserDao;
+import com.shopstack.entities.role.Role;
 import com.shopstack.entities.user.BusinessUser;
-import com.shopstack.entities.user.VerificationToken;
+
+
 
 
 /**
@@ -50,28 +50,31 @@ public class BusinessUserDaoImplTest {
 	
 	@Test
 	public void addNewUserTest() {
+		
+		Role userRole = new Role("ROLE_USER");
 
 		BusinessUser tempUser = new BusinessUser("Oluwatobi", "Omotosho", "tboydv1@gmail.com",
-				"070598584784", "testpass", 0);
+				"070598584784", "testpass", 0, userRole);
 		
 		businessUserDaoImpl.saveUser(tempUser);
 		
+		BusinessUser savedUser = businessUserDaoImpl.loadUserByEmail(tempUser.getEmail());
 		
+		assertNotNull(savedUser);
 		
+		assertEquals(savedUser.getFirstName(), tempUser.getFirstName());
 		
-		
-		
-		
+	
 	}
 	
 	@Test
-	public void getUsersTest() {
+	public void addNullUserTest() {
 		
-		//add shop owner to the database
+		BusinessUser tempUser = null;
 		
+		assertThrows(NullPointerException.class,  ()-> businessUserDaoImpl.saveUser(tempUser));
 		
 	}
-	
 	
 	
 	
