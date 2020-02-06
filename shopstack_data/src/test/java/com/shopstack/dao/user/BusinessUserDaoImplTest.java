@@ -15,6 +15,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
+import com.shopstack.dao.businessuser.BusinessUserDao;
 import com.shopstack.entities.user.BusinessUser;
 import com.shopstack.entities.user.VerificationToken;
 

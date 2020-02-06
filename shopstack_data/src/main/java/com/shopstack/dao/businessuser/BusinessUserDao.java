@@ -1,4 +1,4 @@
-package com.shopstack.dao.user;
+package com.shopstack.dao.businessuser;
 
 import java.util.List;
 
