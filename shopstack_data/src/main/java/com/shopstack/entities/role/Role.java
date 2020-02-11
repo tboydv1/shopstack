@@ -24,8 +24,8 @@ public class Role {
 	private String role;
 	
 	@ManyToOne
-	@JoinColumn(name="ss_user_id")
-	private BusinessUser userId;
+	@JoinColumn(name="user_email")
+	private BusinessUser userEmail;
 	
 	public Role() {
 		
@@ -56,14 +56,16 @@ public class Role {
 		this.role = role;
 	}
 
-	public BusinessUser getUserId() {
-		return userId;
+	public BusinessUser getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(BusinessUser userId) {
-		this.userId = userId;
+	public void setUserEmail(BusinessUser userEmail) {
+		this.userEmail = userEmail;
 	}
 	
+	
+
 	        
 
 	

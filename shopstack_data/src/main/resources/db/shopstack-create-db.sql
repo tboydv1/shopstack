@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`ss_user` (
   `ss_date_joined` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ss_password` VARCHAR(45) NULL DEFAULT NULL,
   `ss_enabled` TINYINT(1) NULL DEFAULT NULL,
-  PRIMARY KEY (`ss_user_id`))
+  PRIMARY KEY (`ss_user_id`, `ss_email`),
+  INDEX `index2` (`ss_email` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = latin1;
@@ -321,12 +322,12 @@ DROP TABLE IF EXISTS `shopstack`.`role` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`role` (
   `role_id` INT(11) NOT NULL AUTO_INCREMENT,
   `role` VARCHAR(50) NOT NULL,
-  `ss_user_id` INT(11) NOT NULL,
+  `user_email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`role_id`),
-  INDEX `fk_role_ss_user1_idx` (`ss_user_id` ASC),
-  CONSTRAINT `fk_role_ss_user1`
-    FOREIGN KEY (`ss_user_id`)
-    REFERENCES `shopstack`.`ss_user` (`ss_user_id`)
+  INDEX `fk_role_user_email_idx` (`user_email` ASC),
+  CONSTRAINT `fk_role_user_email`
+    FOREIGN KEY (`user_email`)
+    REFERENCES `shopstack`.`ss_user` (`ss_email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

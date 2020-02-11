@@ -34,67 +34,81 @@
 
                 <div class="col-md-6 col-lg-6 col-sm-4 col-xs-4">
 
-                <img src="${pageContext.request.contextPath}/resources/img/path.png" alt="">
+                
                 <img src="${pageContext.request.contextPath}/resources/img/shopstack-logo.png" style="width:150px" alt=""><br /><br />
                 <br />
 
                 <h4 class="shift">Create new account</h4>
                 <p class="shift-rider">Use your work email to create new account... it's free.</p>
 
-                <form action ="process" method = "GET">
+                <form:form action ="${pageContext.request.contextPath}/user/process" modelAttribute="user"  method = "GET">
                     
                        <div class="form-row">
                         <div class="form-group col-md-6">
-                        <label for="firstname">Firstname</label>
-						<spring:bind path="shopOwner.firstName"> 
-				        		<input  type="text" name="${status.expression}" value="${status.value}"class="form-control" placeholder="First name"/>
-			        	</spring:bind>	  
+                        <label for="InputFirstname">Firstname</label>
+						 
+				        		<form:input  type="text" path="firstName" class="form-control" placeholder="First name"/>
+			        	 
 	        			</div>
 	        			
                         <div class="form-group col-md-6">
                         <label for="inputLastname">Lastname</label>
-                      <spring:bind path="shopOwner.lastName">
-	        			<input type="text"  class="form-control" name="${status.expression}" value="${status.value}" placeholder="Last name" />
-	       	 		 </spring:bind>
+              
+	        			<form:input type="text"  class="form-control" path="lastName" placeholder="Last name" />
+                       
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail">Email Address</label>
-                           <spring:bind path="shopOwner.email">
-				        <input  type="email" name="${status.expression}" value="${status.value}"class="form-control" placeholder="Email address" />
-				        </spring:bind>
+                        
+                        
+				        <form:input  type="email" path="email" class="form-control" placeholder="Email address" />
+				       
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                        <label for="inputUsername">Username</label>
-                   	  <spring:bind path="user.username">
-		        		<input name="${status.expression}" value="${status.value}" class="form-control" placeholder="Username" type="text" />
-		    		</spring:bind>
-                        </div>
-                        <div class="form-group col-md-6">
-                        <label for="inputPassword">Password</label>
-                         <spring:bind path="user.password">
-		        		<input name="${status.expression}" value="${status.value}" class="form-control" placeholder="password" type="text" />
-		    			</spring:bind>
-                        </div>
-                    </div>     
+                    
+                       
                     <div class="form-group">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            I have read the <a href="">Terms and Conditions.</a>
-                        </label>
+                        <label for="inputPhoneNumber">Phone number</label>
+                        
+                        
+				        <form:input  type="text" path= "phoneNumber" class="form-control" placeholder="phone Number" />
+				       
+                    </div>
+                    
+                    
+                     <div class="form-group">
+                        <label for="inputPhoneNumber">Password</label>
+                        
+                        
+				        <form:input  type="password" path= "password" class="form-control" placeholder="Password" />
+				       
+                    </div>
+                   
+                       
+                    <div class="form-group">
+                        <div class="form-check row">
+                        	<div class="col-md">
+	                        <input class="form-check-input" type="checkbox" id="gridCheck">
+	                        <label class="form-check-label" for="gridCheck">
+	                            I have read the <a href="">Terms and Conditions.</a>
+	                        </label>
+	                        </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign up Now</button>
-                    </form>
-                    <br />
+                    
+                    </form:form>
+                    
+                   <!-- <br />  -->
 
-                    <p>Have an account? <a href="${pageContext.request.contextPath}/login">Sign In</a></p>
+                     
+                     </div>
+                    
                     </div>
-
-                    </div>
-                    </div>
+					
+					</div>  
+                           
+                    
     </section>
 
 

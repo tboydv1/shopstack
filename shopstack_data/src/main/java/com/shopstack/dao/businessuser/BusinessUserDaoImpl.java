@@ -87,6 +87,7 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
+		@SuppressWarnings("rawtypes")
 		Query query = currentSession.createQuery("from BusinessUser u where u.email =: bizEmail");
 		
 		query.setParameter("bizEmail", email);

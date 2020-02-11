@@ -69,7 +69,7 @@ public class BusinessUser {
 	@Column(name="ss_enabled")
 	private int enabled;
 	
-	@OneToMany(mappedBy="userId")
+	@OneToMany(mappedBy="userEmail")
 	private List<Role> userRoles;
 	
 	@ManyToMany(
@@ -90,14 +90,14 @@ public class BusinessUser {
 	
 	
 	public BusinessUser(@NotNull String firstName, @NotNull String lastName, @NotNull @Email String email,
-			@NotNull String contactNumber, @NotNull String password, @NotNull int enabled) {
+			@NotNull String contactNumber, @NotNull String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = contactNumber;
 		this.password = password;
-		this.enabled = enabled;
+		this.enabled = 0;
 	}
 
 	public String getPassword() {

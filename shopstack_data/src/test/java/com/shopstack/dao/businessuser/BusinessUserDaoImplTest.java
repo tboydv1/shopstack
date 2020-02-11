@@ -59,7 +59,7 @@ public class BusinessUserDaoImplTest {
 		Role userRole = new Role("ROLE_OWNER");
 
 		BusinessUser tempUser = new BusinessUser("Oluwatobi", "Omotosho", "tboydv1@gmail.com",
-				"070598584784", "testpass", 0);
+				"070598584784", "testpass");
 		
 		tempUser.addUserRoles(userRole);
 		
