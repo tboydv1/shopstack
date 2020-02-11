@@ -44,7 +44,7 @@ public class ShopOwnerController {
 	@GetMapping("/shop-owner")
 	public String showRegisterForm(Model theModel) {
 		
-		theModel.addAttribute("shopOwner", new ShopOwner());
+//		theModel.addAttribute("shopOwner", new ShopOwner());
 		
 		return "onboarding";
 	}

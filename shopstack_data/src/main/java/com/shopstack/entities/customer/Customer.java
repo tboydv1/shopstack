@@ -22,26 +22,31 @@ public class Customer {
 	private int customerId;
 	
 	@Column(name="name")
-	@NotEmpty
+	@NotNull(message= "is required")
 	@Size(min=4, max=45)
 	private String name;
 	
 	@Column(name="email")
-	@NotNull @Email
+	@NotNull
+	@Email
 	private String email;
 	 
 	@Column(name="organization_name")
-	@NotEmpty
 	private String organizationName;
 	
 	@Column(name="contact_number")
-	@Size(max=13)
+	@NotNull(message="is required")
+//	@Size(max=13)
 	private int contactNumber;
 	
 	
-
+	public Customer() {
+		
+	}
+	
+	
 	public Customer( @NotEmpty @Size(min = 4, max = 45) String name, @NotNull @Email String email,
-			@NotEmpty String organizationName, @Size(max = 13) int contactNumber) {	
+			@NotEmpty String organizationName, int contactNumber) {	
 		this.name = name;
 		this.email = email;
 		this.organizationName = organizationName;

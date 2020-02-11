@@ -13,7 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.shopstack.entities.user.User;
+
 
 
 
@@ -50,24 +50,21 @@ public class ShopOwner {
 	@Column(name="contact_number")
 	private String contactNumber;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_username")
-	private User userDetail;
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="user_username")
+////	private User userDetail;
 	
-	public ShopOwner() {
-		
-	}
 	
 	public ShopOwner(@NotNull(message = "is required") @Size(min = 1) String firstName,
 			@NotNull(message = "is required") @Size(min = 1) String lastName, String address,
-			@Email @NotNull String email, @NotNull String contactNumber, User userDetail) {
+			@Email @NotNull String email, @NotNull String contactNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.email = email;
 		this.contactNumber = contactNumber;
-		this.userDetail = userDetail;
+//		this.userDetail = userDetail;
 	}
 
 	public int getId() {

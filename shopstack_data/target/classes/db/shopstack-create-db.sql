@@ -56,7 +56,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`customer` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`customer` (
-  `customer_id` INT(11) NOT NULL,
+  `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `organization_name` VARCHAR(45) NULL DEFAULT NULL,

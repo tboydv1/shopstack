@@ -13,17 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.shopstack.context.config.DataContextConfig;
+//import com.shopstack.context.config.DataContextConfig;
 import com.shopstack.entities.shopowner.ShopOwner;
-import com.shopstack.entities.user.User;
+//import com.shopstack.entities.user.User;
 
 
 /**
  * @author oluwatobi
  *
  */
-@ContextConfiguration(classes= DataContextConfig.class)	
-@RunWith(SpringRunner.class)
+//@ContextConfiguration(classes= DataContextConfig.class)	
+//@RunWith(SpringRunner.class)
 public class ShopOwnerDaoImpTest {
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
@@ -70,45 +70,45 @@ public class ShopOwnerDaoImpTest {
 	public void addNewShopOwner_cascadeSave_username_password() {
 		
 	
-	try {
-		User username = new User("funmi", "test123", 1);
-		
-		logger.info("creating user details" + username);
-		
-		ShopOwner tempShopOwner1 =  new ShopOwner("Funmi", "Oyeyipo", "908 bowan street",
-				"green@mail.com", "07053564537432", username);
-		
-		shopOwnerDaoImp.saveShopOwner(tempShopOwner1);
-		
-		User username2 = new User("bleak", "test123", 1);
-		
-		ShopOwner tempShopOwner2 =  new ShopOwner("ray", "brook", "743 round street",
-				"ray@mail.com", "070746536653", username2);
-	
-		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);
-		
-		
-	}
-	catch(Exception exe) {
-		
-		logger.throwing(getClass().getName(), " addNewShopOwner_cascadeSave_username_password() ", exe);
-	
-	}
-	}
-		
-	@Test
-	public void getAllShopOwnersFromTheDatabase() {
-		
-		
-		//get all shopowners saved in the database
-		logger.info("Getting shopowners from the database");
-		List<ShopOwner> result = shopOwnerDaoImp.getShopOwners();
-		
-		for(ShopOwner person: result) {
-			
-			logger.info(person.toString());
-		}
-		
+//	try {
+//		User username = new User("funmi", "test123", 1);
+//		
+//		logger.info("creating user details" + username);
+//		
+//		ShopOwner tempShopOwner1 =  new ShopOwner("Funmi", "Oyeyipo", "908 bowan street",
+//				"green@mail.com", "07053564537432", username);
+//		
+//		shopOwnerDaoImp.saveShopOwner(tempShopOwner1);
+//		
+//		User username2 = new User("bleak", "test123", 1);
+//		
+//		ShopOwner tempShopOwner2 =  new ShopOwner("ray", "brook", "743 round street",
+//				"ray@mail.com", "070746536653", username2);
+//	
+//		shopOwnerDaoImp.saveShopOwner(tempShopOwner2);
+//		
+//		
+//	}
+//	catch(Exception exe) {
+//		
+//		logger.throwing(getClass().getName(), " addNewShopOwner_cascadeSave_username_password() ", exe);
+//	
+//	}
+//	}
+//		
+//	@Test
+//	public void getAllShopOwnersFromTheDatabase() {
+//		
+//		
+//		//get all shopowners saved in the database
+//		logger.info("Getting shopowners from the database");
+//		List<ShopOwner> result = shopOwnerDaoImp.getShopOwners();
+//		
+//		for(ShopOwner person: result) {
+//			
+//			logger.info(person.toString());
+//		}
+//		
 	}
 	
 	

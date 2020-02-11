@@ -17,8 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.shopstack.dao.customer.CustomerDao;
 import com.shopstack.entities.customer.Customer;
-import com.shopstack.entities.customer.Dao.CustomerDao;
 
 @ContextConfiguration("classpath:/data-access-layer-context.xml")
 @RunWith(SpringRunner.class)

@@ -23,7 +23,7 @@ public class ShopOwnerServiceImpl implements ShopOwnerService {
 		
 		logger.info("Calling shopOwnerDaoImpl.addShopOwer");
 		
-		shopOwnerDaoImpl.addShopOwner(tempShopOwner);
+		shopOwnerDaoImpl.saveShopOwner(tempShopOwner);
 		
 	}
 	
