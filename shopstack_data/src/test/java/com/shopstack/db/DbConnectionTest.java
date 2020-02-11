@@ -18,13 +18,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.shopstack.context.config.DataContextConfig;
+//import com.shopstack.context.config.DataContextConfig;
 
 /**
  * @author adefunmi90
  *
  */
-@ContextConfiguration(classes = DataContextConfig.class)	
+//@ContextConfiguration(classes = DataContextConfig.class)	
 //@ContextConfiguration("classpath:/data-access-layer-context.xml")	
 @RunWith(SpringRunner.class)
 public class DbConnectionTest {
