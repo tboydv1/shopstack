@@ -11,28 +11,28 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.shopstack.context.config.DataContextConfig;
 
 /**
  * @author adefunmi90
  *
  */
-@ContextConfiguration("classpath:/data-access-layer-context.xml")
+@ContextConfiguration(classes = DataContextConfig.class)	
+//@ContextConfiguration("classpath:/data-access-layer-context.xml")	
 @RunWith(SpringRunner.class)
 public class DbConnectionTest {
-	 private Logger logger = Logger.getLogger("DbConnectionTest");
 	
-	 @Autowired
-	private ComboPooledDataSource dataSource;
+	
+	private Logger logger = Logger.getLogger(getClass().getName());
+	
+
 	 
 	@Before
 	public void setUp() throws Exception {
@@ -45,15 +45,13 @@ public class DbConnectionTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void dataSourceInitializationTest() {
-		assertNotNull(dataSource);
-	}
+	
 	@Test
 	public void dbConnectionManegerExistTest() {
+		
 		String user = "shopstack_admin";
 		String password = "shopStack1.0";
-		String jdbcUrl = "jdbc:mysql://localhost:3306/shopstack?useSSL=false&amp;serverTimezone=UTC";
+		String jdbcUrl = "jdbc:mysql://localhost:3306/shopstack?useSSL=false&serverTimezone=UTC";
 		
 		try {
 			

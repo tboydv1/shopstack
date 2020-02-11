@@ -14,7 +14,13 @@
 	
 	
 
-	<import resource="data-access-layer-context.xml"/>
+	
+	<context:annotation-config />
+	
+	<!-- Importing java-config class, which are annotated with @Configuration -->
+	<bean name="DataContextConfig" class= "com.shopstack.context.config.DataContextConfig"/>
+	
+	<!-- <bean name="SomeJavaConfig" class="[fully qualified path].SomeJavaConfig" />  -->	
 
 	<!-- Add support for component scanning -->
 		<context:component-scan base-package="com.shopstack" />

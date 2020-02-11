@@ -43,14 +43,7 @@
 			    <version>4.12</version>
 			    <scope>test</scope>
 			</dependency>
-		
-			<dependency>
-			    <groupId>org.junit.platform</groupId>
-			    <artifactId>junit-platform-launcher</artifactId>
-			    <version>1.5.2</version>
-			    <scope>test</scope>
-			</dependency>
-			
+
 			<dependency>
 			    <groupId>org.mockito</groupId>
 			    <artifactId>mockito-core</artifactId>
@@ -58,6 +51,33 @@
 			    <scope>test</scope>
 			</dependency>
 			
+			
+			<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.13.0</version>
+		</dependency>
+		
+		<!-- Java mail sender -->
+
+	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>5.0.1.RELEASE</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.6.0</version>
+    <scope>test</scope>
+</dependency>
+	
+
+	
 	  
   </dependencies>
   
