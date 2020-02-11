@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.shopstack.entities.user.BusinessUser;
 
 @Entity
 @Table(name="role")
@@ -18,6 +22,23 @@ public class Role {
 	
 	@Column(name="role")
 	private String role;
+	
+	@ManyToOne
+	@JoinColumn(name="ss_user_id")
+	private BusinessUser userId;
+	
+	public Role() {
+		
+	}
+	
+	public Role(int id, String role) {
+		
+	}
+	
+	public Role(String role) {
+		
+		this.role = role;
+	}
 
 	public int getRoleId() {
 		return roleId;
@@ -35,11 +56,16 @@ public class Role {
 		this.role = role;
 	}
 
-	public Role(String role) {
-		super();
-		this.role = role;
+	public BusinessUser getUserId() {
+		return userId;
+	}
+
+	public void setUserId(BusinessUser userId) {
+		this.userId = userId;
 	}
 	
+	        
+
 	
 	
 	

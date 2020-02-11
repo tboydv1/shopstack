@@ -11,4 +11,6 @@ public interface BusinessUserDao {
 	public void saveUser(BusinessUser theUser);
 	
 	public BusinessUser loadUserByEmail(String username);
+
+	BusinessUser loadUserById(int businessUserId);
 }
