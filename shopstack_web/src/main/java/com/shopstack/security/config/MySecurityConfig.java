@@ -22,12 +22,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			
 		auth.jdbcAuthentication().dataSource(securityDataSource)
-								.usersByUsernameQuery("select username,password,enabled "
-							        + "from user "
-							        + "where username = ?")
-								.authoritiesByUsernameQuery("select username,role "
-							        + "from user "
-							        + "where username = ?");
+								.usersByUsernameQuery("select ss_email, ss_password, ss_enabled "
+							        + "from ss_user "
+							        + "where ss_email = ?")
+								.authoritiesByUsernameQuery("select role, user_email"
+							        + "from role "
+							        + "where user_email = ?");
 	}
 
 	@Override

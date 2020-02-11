@@ -1,9 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib  uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib
-    prefix="c"
-    uri="http://java.sun.com/jsp/jstl/core" 
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -59,42 +56,15 @@
                 <form:form action="${pageContext.request.contextPath}/authenticate" 
 							   method="POST" >
 							   
-							    <!-- Place for messages: error, alert etc ... -->
-					<div class="form-group">
-			        	<div class="col-xs-15">
-			            	<div>
-								
-							<!-- Check for login error -->
-
-								<c:if test="${param.error != null}">
-
-								<div class="alert alert-danger col-xs-offset-1 col-xs-10">
-									Invalid username and password.
-								</div>
-						
-								</c:if>
-															
-								<!-- Check for logout -->	
-							
-								<c:if test="${param.logout != null}">
-							           
-								<div class="alert alert-success col-xs-offset-1 col-xs-10">
-									You have been logged out.
-								</div>
-							
-								</c:if>
-
-			            </div>
-					        </div>
-					    </div>
+					
                     
                     <div class="form-group">
                         <label for="emailAddress">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="username">
+                        <input type="text" class="form-control" path="username" placeholder="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" class="form-control" path="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary">Sign In</button>
                 </form:form><br />

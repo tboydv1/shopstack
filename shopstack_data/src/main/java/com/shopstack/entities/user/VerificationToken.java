@@ -22,15 +22,15 @@ public class VerificationToken {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="token_id")
 	private int id;
 		
 	@Column(name="token")
 	private String token;
 	
-	@OneToOne(targetEntity=User.class)
-	@JoinColumn(nullable = false, name="user_id", foreignKey = @ForeignKey(name="fk_VerificationToken_user"))
-	private User user;
+	@OneToOne(targetEntity=BusinessUser.class)
+	@JoinColumn(nullable = false, name="ss_user_id", foreignKey = @ForeignKey(name="fk_verification_token_ss_user1"))
+	private BusinessUser businessUser;
 	
 	@Column(name="expiry_date")
 	private Date expiryDate;
@@ -46,10 +46,10 @@ public class VerificationToken {
 	}
 	
 	
-	public VerificationToken(final String token, final User user) {
+	public VerificationToken(final String token, final BusinessUser businessUser) {
 			
 		this.token = token;
-		this.user = user;
+		this.businessUser = businessUser;
 		this.expiryDate = calculateExpiryDate(Expiration);
 	}
 
@@ -81,12 +81,12 @@ public class VerificationToken {
 		this.token = token;
 	}
 
-	public User getUser() {
-		return user;
+	public BusinessUser getUser() {
+		return businessUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(BusinessUser businessUser) {
+		this.businessUser = businessUser;
 	}
 
 	public Date getExpiryDate() {
@@ -103,7 +103,7 @@ public class VerificationToken {
 
 	@Override
 	public String toString() {
-		return "VerificationToken [id=" + id + ", token=" + token + ", user=" + user + ", expiryDate=" + expiryDate
+		return "VerificationToken [id=" + id + ", token=" + token + ", user=" + businessUser + ", expiryDate=" + expiryDate
 				+ "]";
 	}
 	

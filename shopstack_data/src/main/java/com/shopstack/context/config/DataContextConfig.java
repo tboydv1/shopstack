@@ -23,6 +23,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+
+
+/**
+ * @author oluwatobi
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages= {"com.shopstack"})
@@ -50,9 +56,9 @@ public class DataContextConfig {
 			throw new RuntimeException(exc);
 		}
 		
-		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
-		logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
-		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
+//		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
+//		logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
+//		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
 		
 		// set database connection props
 		myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
@@ -74,8 +80,10 @@ public class DataContextConfig {
 		// set hibernate properties
 		Properties props = new Properties();
 
+		props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+//		props.setProperty("hibernate.current_session_context_class", env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
 		
 		return props;				
 	}
@@ -121,28 +129,6 @@ public class DataContextConfig {
 	
 	}
 	
-//	@Bean
-//	public JavaMailSender getJavaMailSender() {
-//	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-//	    
-//	    mailSender.setHost("smtp.gmail.com");
-//	    mailSender.setPort(587);
-//	     
-//	    mailSender.setUsername("omotoshotobi22@gmail.com");
-//	    mailSender.setPassword("galaxyME125");
-//	     
-//	    Properties props = mailSender.getJavaMailProperties();
-//	    
-//	    props.put("mail.transport.protocol", "smtp");
-//	    props.put("mail.smtp.auth", "true");
-//	    props.put("mail.smtp.starttls.enable", "true");
-//	    
-//	 
-//		  props.put("mail.debug", "true");
-//	     
-//	    return mailSender;
-//	}
-//	
 	@Bean
 	public MessageSource messageSource()
 	{

@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.shopstack.entities.user.User;
+import com.shopstack.entities.user.BusinessUser;
 
 
 /**
@@ -20,12 +20,12 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent{
 	
 	private String appUrl;
 	private Locale locale;
-	private User user;
+	private BusinessUser businessUser;
 	
-	public OnRegistrationCompleteEvent(User user, Locale locale, String appUrl) {
+	public OnRegistrationCompleteEvent(BusinessUser businessUser, Locale locale, String appUrl) {
 		
-		super(user);
-		this.user = user;
+		super(businessUser);
+		this.businessUser = businessUser;
         this.locale = locale;
         this.appUrl = appUrl;
 	}
@@ -46,12 +46,12 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent{
 		this.locale = locale;
 	}
 
-	public User getUser() {
-		return user;
+	public BusinessUser getUser() {
+		return businessUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(BusinessUser businessUser) {
+		this.businessUser = businessUser;
 	}
 	
 	

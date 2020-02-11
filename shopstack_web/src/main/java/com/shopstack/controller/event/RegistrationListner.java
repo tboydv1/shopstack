@@ -10,8 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.shopstack.entities.user.User;
-import com.shopstack.service.user.UserService;
+import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.service.businessuser.BussinessUserService;
 
 @Component
 public class RegistrationListner implements ApplicationListener<OnRegistrationCompleteEvent> {
@@ -25,7 +25,7 @@ public class RegistrationListner implements ApplicationListener<OnRegistrationCo
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	private UserService userServiceImpl;
+	private BussinessUserService userServiceImpl;
 	
 	
 	
@@ -40,20 +40,20 @@ public class RegistrationListner implements ApplicationListener<OnRegistrationCo
 	
 	private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		
-		System.out.println(event.getUser().getShopOwner());
+		System.out.println(event.getUser().getEmail());
 		
 		//generate token for user
-		User user = event.getUser();
+		BusinessUser businessUser = event.getUser();
 		String token = UUID.randomUUID().toString();
 		
 		//save verification token to the database	 
-		userServiceImpl.createVerificationTokenForUser(user, token);
+		userServiceImpl.createVerificationTokenForUser(businessUser, token);
 		
 		//create confimation url
-		String recepientAddress = user.getShopOwner().getEmail();
+		String recepientAddress = businessUser.getEmail();
 		String subject = "Registration Confimation";
 		String confirmationUrl = event.getAppUrl() + "/shop-owner/registrationConfirm?token="+token;
-        String message = messages.getMessage("message.regCon", null, event.getLocale());		
+        String message = messages.getMessage("message.regCon ", null, event.getLocale());		
 		//send email
 		SimpleMailMessage email = new SimpleMailMessage();
 		
