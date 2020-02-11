@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.logging.Logger;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,11 +27,14 @@ import com.shopstack.entities.user.BusinessUser;
  *
  */
 
-@Sql(scripts= {"classpath:shopstack-create-db.sql"})
+@Sql(scripts= {"classpath:/db/shopstack-create-db.sql"})
 @ContextConfiguration(classes= DataContextConfig.class)	
 @RunWith(SpringRunner.class)
 public class BusinessUserDaoImplTest {
 
+	
+	private Logger logger = Logger.getLogger(getClass().getName());
+	
 	@Autowired
 	private BusinessUserDao businessUserDaoImpl;
 //	
@@ -51,14 +56,22 @@ public class BusinessUserDaoImplTest {
 	@Test
 	public void addNewUserTest() {
 		
-		Role userRole = new Role("ROLE_USER");
+		Role userRole = new Role("ROLE_OWNER");
 
 		BusinessUser tempUser = new BusinessUser("Oluwatobi", "Omotosho", "tboydv1@gmail.com",
-				"070598584784", "testpass", 0, userRole);
+				"070598584784", "testpass");
+		
+		tempUser.addUserRoles(userRole);
+		
+		logger.info("Saving new user to the database");
 		
 		businessUserDaoImpl.saveUser(tempUser);
 		
-		BusinessUser savedUser = businessUserDaoImpl.loadUserByEmail(tempUser.getEmail());
+		logger.info("User id is: "+ tempUser.getUserId());
+//		
+		BusinessUser savedUser = businessUserDaoImpl.loadUserById(tempUser.getUserId());
+		
+		logger.info("Getting saved user from the database");
 		
 		assertNotNull(savedUser);
 		
@@ -66,6 +79,8 @@ public class BusinessUserDaoImplTest {
 		
 	
 	}
+	
+	
 	
 	@Test
 	public void addNullUserTest() {

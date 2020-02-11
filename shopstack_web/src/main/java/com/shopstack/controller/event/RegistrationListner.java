@@ -40,37 +40,37 @@ public class RegistrationListner implements ApplicationListener<OnRegistrationCo
 	
 	private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		
-//		System.out.println(event.getUser().getShopOwner());
-//		
-//		//generate token for user
-//		BusinessUser businessUser = event.getUser();
-//		String token = UUID.randomUUID().toString();
-//		
-//		//save verification token to the database	 
-//		userServiceImpl.createVerificationTokenForUser(businessUser, token);
-//		
-//		//create confimation url
-//		String recepientAddress = businessUser.getShopOwner().getEmail();
-//		String subject = "Registration Confimation";
-//		String confirmationUrl = event.getAppUrl() + "/shop-owner/registrationConfirm?token="+token;
-//        String message = messages.getMessage("message.regCon", null, event.getLocale());		
-//		//send email
-//		SimpleMailMessage email = new SimpleMailMessage();
-//		
-//		email.setTo(recepientAddress);
-//		email.setSubject(subject);
-//		email.setText(message +  "http://localhost:8080" + confirmationUrl);
-//		
-//		System.out.println(confirmationUrl);
-//		
-//		try {
-//			mailSender.send(email);
-//			System.out.println("Mail sent successfully");
-//		}catch(Exception mailException) {
-//			mailException.printStackTrace();
-//		}
-//				
-//		
+		System.out.println(event.getUser().getEmail());
+		
+		//generate token for user
+		BusinessUser businessUser = event.getUser();
+		String token = UUID.randomUUID().toString();
+		
+		//save verification token to the database	 
+		userServiceImpl.createVerificationTokenForUser(businessUser, token);
+		
+		//create confimation url
+		String recepientAddress = businessUser.getEmail();
+		String subject = "Registration Confimation";
+		String confirmationUrl = event.getAppUrl() + "/shop-owner/registrationConfirm?token="+token;
+        String message = messages.getMessage("message.regCon ", null, event.getLocale());		
+		//send email
+		SimpleMailMessage email = new SimpleMailMessage();
+		
+		email.setTo(recepientAddress);
+		email.setSubject(subject);
+		email.setText(message +  "http://localhost:8080" + confirmationUrl);
+		
+		System.out.println(confirmationUrl);
+		
+		try {
+			mailSender.send(email);
+			System.out.println("Mail sent successfully");
+		}catch(Exception mailException) {
+			mailException.printStackTrace();
+		}
+				
+		
 	}
 
 }

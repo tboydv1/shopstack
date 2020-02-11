@@ -39,18 +39,13 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 		
 		try {
 		
-			logger.info("getting list of users from the database");
-			
 			Query<BusinessUser> query = currentSession.createQuery("from User", BusinessUser.class);
-			
-			logger.info("Executing query");
+
 			resultList = query.getResultList();
-			
-			logger.info(" >>> Successfully got users from database <<<<");
-			
 		}
 		catch(Exception exe) {
-			logger.log(Level.SEVERE, "Exeception thrown while executing query" , exe);
+			
+			resultList = null;
 
 		}
 		
@@ -63,17 +58,10 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 			
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		try {
-			
-			if(theUser != null)
-				currentSession.saveOrUpdate(theUser);
-			
-		}
-		catch(Exception exe) {
-			
-			logger.log(Level.SEVERE, "Exeception thrown while executing query" , exe);
-
-		}
+		if(theUser != null)
+			currentSession.saveOrUpdate(theUser);
+		else 
+			throw new NullPointerException();
 		
 		
 	}
@@ -81,22 +69,39 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 
 
 	@Override
-	public BusinessUser loadUserByEmail(String email) {
+	public BusinessUser loadUserById(int businessUserId) {
+		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("from User u where u.username = :text");
+		BusinessUser existingUser = (BusinessUser) currentSession
+												.get(BusinessUser.class.getName(), businessUserId);
+	
+		return existingUser;
 		
-		query.setParameter("text", email);
+	}
+
+	@Override
+	public BusinessUser loadUserByEmail(String email) {
+			
+		BusinessUser existingUser;
 		
-		BusinessUser queryResult;
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		@SuppressWarnings("rawtypes")
+		Query query = currentSession.createQuery("from BusinessUser u where u.email =: bizEmail");
+		
+		query.setParameter("bizEmail", email);
 		
 		try {
-			queryResult = (BusinessUser) query.getResultList().get(0);
-		}catch(Exception e) {
-			queryResult = null;
+			existingUser = (BusinessUser) query.getResultList().get(0);
+
+		}catch(RuntimeException runtimeEx) {
+			
+			logger.warning("Runtime exception while fetching user from the database \n" + runtimeEx);
+			existingUser = null;
 		}
 		
-		return queryResult;
+		return existingUser;
 	}
 	
 	

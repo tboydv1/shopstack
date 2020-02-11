@@ -1,26 +1,33 @@
 package com.shopstack.entities.user;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.shopstack.entities.business.BusinessOutlet;
 import com.shopstack.entities.role.Role;
 
 
 @Entity
-@Table(name="ss_users")
+@Table(name="ss_user")
 public class BusinessUser {
 
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ss_user_id")
@@ -49,7 +56,8 @@ public class BusinessUser {
 	@Column(name="ss_phone_number")
 	private String phoneNumber;
 	
-	@NotNull
+	
+	@CreationTimestamp
 	@Column(name="ss_date_joined")
 	private Date dateJoined;
 	
@@ -57,14 +65,23 @@ public class BusinessUser {
 	@Column(name ="ss_password")
 	private String password;
 	
-	@NotNull
+	
 	@Column(name="ss_enabled")
 	private int enabled;
 	
-	@OneToOne
-	@JoinColumn(name="role_id")
-	private Role roleId;
+	@OneToMany(mappedBy="userEmail")
+	private List<Role> userRoles;
 	
+	@ManyToMany(
+			cascade= {CascadeType.DETACH, CascadeType.REFRESH,
+			CascadeType.MERGE, CascadeType.PERSIST}	
+			)
+	@JoinTable(
+			name="business_outlet_has_employee",
+			joinColumns=@JoinColumn(name="ss_user_id"),
+			inverseJoinColumns=@JoinColumn(name="ss_business_outlet_id")
+	)
+	private List<BusinessOutlet> businessOutlets;
 	
 	
 	public BusinessUser() {
@@ -73,14 +90,14 @@ public class BusinessUser {
 	
 	
 	public BusinessUser(@NotNull String firstName, @NotNull String lastName, @NotNull @Email String email,
-			@NotNull String contactNumber, @NotNull String password, @NotNull int enabled) {
+			@NotNull String contactNumber, @NotNull String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = contactNumber;
 		this.password = password;
-		this.enabled = enabled;
+		this.enabled = 0;
 	}
 
 	public String getPassword() {
@@ -174,21 +191,42 @@ public class BusinessUser {
 	}
 
 
-	public Role getRoleId() {
-		return roleId;
-	}
-
-
-	public void setRoleId(Role roleId) {
-		this.roleId = roleId;
-	}
-
 
 	@Override
 	public String toString() {
 		return "BusinessUser [userId=" + userId + ", title=" + title + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", dateJoined=" + dateJoined
-				+ ", enabled=" + enabled + ", roleId=" + roleId + "]";
+				+ ", enabled=" + enabled + "]";
+	}
+
+
+	public List<Role> getUserRoles() {
+		return userRoles;
+	}
+
+
+	public void addUserRoles(Role newRole) {
+		
+		if((userRoles == null)) {
+			userRoles = new ArrayList<>();
+		}
+		
+		userRoles.add(newRole);
+	}
+
+
+	public List<BusinessOutlet> getBusinessOutlets() {
+		return businessOutlets;
+	}
+
+
+	public void setBusinessOutlets(List<BusinessOutlet> business) {
+		this.businessOutlets = business;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 	
