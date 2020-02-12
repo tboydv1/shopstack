@@ -1,4 +1,4 @@
-package com.shopstack.customerDb;
+package com.shopstack.dao.customer;
 
 import static org.junit.Assert.*;
 

@@ -45,6 +45,14 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/WEB-INF/products/" />
+		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/WEB-INF/sales/" />
+		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/WEB-INF/customer/" />
+		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/WEB-INF/auth/" />
+		<property name="suffix" value=".jsp" />
 	</bean>
 	
 	<mvc:resources location="/resources/" mapping ="/resources/**"></mvc:resources>

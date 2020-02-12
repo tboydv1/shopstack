@@ -7,6 +7,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.shopstack.entities.customer.Customer;
 
 /**
@@ -24,7 +25,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	private Logger logger = Logger.getLogger(CustomerDao.class);
 	
 
-@Transactional
+@Override
 public void addCustomer(Customer customerId) {
 		
 
