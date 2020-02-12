@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author oluwatobi
+ *
+ */
 @Entity
 @Table(name="business_category")
 public class BusinessCategory {

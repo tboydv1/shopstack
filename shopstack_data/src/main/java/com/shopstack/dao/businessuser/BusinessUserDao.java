@@ -2,7 +2,7 @@ package com.shopstack.dao.businessuser;
 
 import java.util.List;
 
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 public interface BusinessUserDao {
 
@@ -13,4 +13,6 @@ public interface BusinessUserDao {
 	public BusinessUser loadUserByEmail(String username);
 
 	BusinessUser loadUserById(int businessUserId);
+	
+
 }

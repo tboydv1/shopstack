@@ -1,7 +1,6 @@
 package com.shopstack.dao.businessuser;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.hibernate.Session;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 
 /**
@@ -103,6 +102,8 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 		
 		return existingUser;
 	}
+
+	
 	
 	
 

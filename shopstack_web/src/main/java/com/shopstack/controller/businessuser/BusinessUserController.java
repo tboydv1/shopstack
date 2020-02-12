@@ -19,7 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shopstack.controller.event.OnRegistrationCompleteEvent;
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 import com.shopstack.service.businessuser.BussinessUserService;
 
 @Controller

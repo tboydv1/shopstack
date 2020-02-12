@@ -31,14 +31,11 @@ public class ProductCategory {
 	public ProductCategory() {
 		
 	}
-	
-	
+
 	public ProductCategory(@NotNull String categoryName) {
 		this.categoryName = categoryName;
 	}
-
-
-   
+	
 	public String getCategoryName() {
 		return categoryName;
 	}

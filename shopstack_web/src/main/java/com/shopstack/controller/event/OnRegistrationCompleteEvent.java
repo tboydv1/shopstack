@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 
 /**

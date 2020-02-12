@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.shopstack.dao.businessuser.BusinessUserDao;
 import com.shopstack.dao.businessuser.TokenDao;
+import com.shopstack.entities.businessuser.BusinessUser;
+import com.shopstack.entities.businessuser.VerificationToken;
 import com.shopstack.entities.role.Role;
-import com.shopstack.entities.user.BusinessUser;
-import com.shopstack.entities.user.VerificationToken;
 
+/**
+ * @author oluwatobi
+ *
+ */
 @Service
 public class BussinessUserServiceImpl implements BussinessUserService{
 
@@ -27,7 +31,6 @@ public class BussinessUserServiceImpl implements BussinessUserService{
 		
 		 VerificationToken myToken = new VerificationToken(token, businessUser);
 	      tokenRepository.saveToken(myToken);
-		
 		
 	}
 

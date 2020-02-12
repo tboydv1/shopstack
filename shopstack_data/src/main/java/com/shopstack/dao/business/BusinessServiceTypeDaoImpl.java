@@ -1,6 +1,7 @@
 package com.shopstack.dao.business;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ import com.shopstack.entities.business.BusinessServiceType;
 @Transactional
 public class BusinessServiceTypeDaoImpl implements BusinessServiceTypeDao{
 
+	Logger logger = Logger.getLogger(getClass().getName());
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -34,7 +36,8 @@ public class BusinessServiceTypeDaoImpl implements BusinessServiceTypeDao{
 			
 		} catch(Exception ex) {
 			
-			System.out.println("Error fetching services from the db");
+			logger.info("Exception was thrown " + ex.toString());
+			
 			ex.printStackTrace();
 			resultList=null;
 		}

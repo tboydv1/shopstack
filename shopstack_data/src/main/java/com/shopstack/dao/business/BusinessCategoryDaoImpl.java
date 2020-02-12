@@ -1,6 +1,7 @@
 package com.shopstack.dao.business;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,8 @@ import com.shopstack.entities.business.BusinessCategory;
 @Transactional
 public class BusinessCategoryDaoImpl implements BusinessCategoryDao {
 
+	Logger logger = Logger.getLogger(getClass().getName());
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -31,9 +34,10 @@ public class BusinessCategoryDaoImpl implements BusinessCategoryDao {
 			
 			resultList = query.getResultList();
 			
-		} catch(Exception ex) {
+		} catch(RuntimeException ex) {
 			
-			System.out.println("Error fetching categories from the db");
+			logger.info("Exception was thrown "+ ex.toString());
+			
 			ex.printStackTrace();
 			resultList=null;
 		}

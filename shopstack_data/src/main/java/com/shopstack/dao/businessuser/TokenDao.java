@@ -1,6 +1,6 @@
 package com.shopstack.dao.businessuser;
 
-import com.shopstack.entities.user.VerificationToken;
+import com.shopstack.entities.businessuser.VerificationToken;
 
 public interface TokenDao {
 

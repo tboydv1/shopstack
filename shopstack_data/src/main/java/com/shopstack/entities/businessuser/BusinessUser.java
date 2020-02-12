@@ -1,4 +1,4 @@
-package com.shopstack.entities.user;
+package com.shopstack.entities.businessuser;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +24,10 @@ import com.shopstack.entities.business.BusinessOutlet;
 import com.shopstack.entities.role.Role;
 
 
+/**
+ * @author oluwatobi
+ *
+ */
 @Entity
 @Table(name="ss_user")
 public class BusinessUser {

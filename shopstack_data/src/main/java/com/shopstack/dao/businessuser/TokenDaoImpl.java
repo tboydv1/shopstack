@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.shopstack.entities.user.VerificationToken;
+import com.shopstack.entities.businessuser.VerificationToken;
 
 @Repository
 public class TokenDaoImpl implements TokenDao{

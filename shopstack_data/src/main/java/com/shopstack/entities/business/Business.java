@@ -20,7 +20,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.*;
+
 
 /**
  * @author oluwatobi

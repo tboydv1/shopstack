@@ -9,13 +9,13 @@ VALUES
 (6,'Carl', 'Grey', 'carl@mail.com', 070674673684,'test@123', 1),
 (7,'Kayode', 'Tope', 'kay@mail.com', 070674673684,'test@123', 1);
 
-INSERT INTO `shopstack`.`role`(`role`, `ss_user_id`)
+INSERT INTO `shopstack`.`role`(`role_id`,`role`, `user_email`)
 VALUES
-('ROLE_USER' , 1),
-('ROLE_USER' , 2),
-('ROLE_USER' , 3),
-('ROLE_USER' , 4),
-('ROLE_USER' , 5),
-('ROLE_USER' , 6),
-('ROLE_USER' , 7);
+(1,'ROLE_USER' , 'ray@mail.com'),
+(2,'ROLE_USER' , 'tolani@mail.com'),
+(3,'ROLE_USER' ,  'lemon@mail.com'),
+(4,'ROLE_USER' ,  'tosho@mail.com'),
+(5,'ROLE_USER' , 'bisi@mail.com'),
+(6,'ROLE_USER' , 'carl@mail.com'),
+(7,'ROLE_USER' , 'kay@mail.com');
 

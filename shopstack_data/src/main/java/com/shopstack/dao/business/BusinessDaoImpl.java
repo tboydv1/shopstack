@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shopstack.entities.business.Business;
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 
 /**
@@ -56,59 +56,27 @@ public class BusinessDaoImpl implements BusinessDao {
 
 
 
-
 	@Override
 	public void deleteBusiness(int businessId) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
-
-
 	@Override
 	public void updateBusiness() {
 		// TODO Auto-generated method stub
-		
 	}
 
-
-
-
 	@Override
-	public List<Business> getBusinessByOwner(BusinessUser businessUser) {
-//		
-//		List<Business> result = null;
-//		
-//		Session currentSession = sessionFactory.getCurrentSession();
-//		
-//		try {
-//			
-//			
-//			CriteriaBuilder cr = currentSession.getCriteriaBuilder();
-//			
-//			cr.createQuery(Business.class).a
-//			cr.and(Restrictions.eq("address.id", addressId))
-//			query.setParameter("businessUser", businessUser.getUserId());
-//			
-//			result = query.getResultList();
-//			
-//			System.out.println("Query sucessfull for business with user id");
-//			
-//		}catch(Exception exe) {
-//			System.out.println("Query exception for business with user id");
-//			exe.printStackTrace();
-//			result = null;
-//		}
-//		
+	public List<Business> findByOwner(BusinessUser businessUser) {
+
 		return null;
 		
 	}
 	
 	@Override
-	public Business getBusinessByEmail(String bizEmail) {
+	public Business findByEmail(String bizEmail) {
 		
-	
 		Business result = null;
 		
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -121,14 +89,12 @@ public class BusinessDaoImpl implements BusinessDao {
 			
 			query.setParameter("email", bizEmail);
 			
-			result = (Business) query.getResultList().get(0);
+			result = (Business) query.getResultList().get(0);			
 			
-			System.out.println("Query sucessfull for business with user id");
+		}catch(RuntimeException exe) {
 			
+			logger.info("Exception thrown while retrieve business from the database");
 			
-		}catch(Exception exe) {
-			
-			System.out.println("Query exception for business with user id");
 			exe.printStackTrace();
 			result = null;
 			
@@ -140,7 +106,7 @@ public class BusinessDaoImpl implements BusinessDao {
 	}
 
 	@Override
-	public Business getBusinessById(int businessId) {
+	public Business findById(int businessId) {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		

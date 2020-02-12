@@ -1,4 +1,4 @@
-package com.shopstack.entities.user;
+package com.shopstack.entities.businessuser;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+/**
+ * @author oluwatobi
+ *
+ */
 @Entity
 @Table(name="verification_token")
 public class VerificationToken {

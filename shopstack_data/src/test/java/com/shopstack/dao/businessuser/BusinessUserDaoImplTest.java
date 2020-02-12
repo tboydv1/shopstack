@@ -16,11 +16,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shopstack.context.config.DataContextConfig;
+import com.shopstack.entities.businessuser.BusinessUser;
 import com.shopstack.entities.role.Role;
-import com.shopstack.entities.user.BusinessUser;
-
-
-
 
 /**
  * @author oluwatobi
@@ -54,30 +51,22 @@ public class BusinessUserDaoImplTest {
 	 */
 	
 	@Test
-	public void addNewUserTest() {
+	public void saveNewUserTest() {
 		
 		Role userRole = new Role("ROLE_OWNER");
 
 		BusinessUser tempUser = new BusinessUser("Oluwatobi", "Omotosho", "tboydv1@gmail.com",
 				"070598584784", "testpass");
-		
 		tempUser.addUserRoles(userRole);
 		
 		logger.info("Saving new user to the database");
-		
 		businessUserDaoImpl.saveUser(tempUser);
 		
-		logger.info("User id is: "+ tempUser.getUserId());
-//		
 		BusinessUser savedUser = businessUserDaoImpl.loadUserById(tempUser.getUserId());
 		
 		logger.info("Getting saved user from the database");
-		
 		assertNotNull(savedUser);
-		
 		assertEquals(savedUser.getFirstName(), tempUser.getFirstName());
-		
-	
 	}
 	
 	
@@ -86,7 +75,6 @@ public class BusinessUserDaoImplTest {
 	public void addNullUserTest() {
 		
 		BusinessUser tempUser = null;
-		
 		assertThrows(NullPointerException.class,  ()-> businessUserDaoImpl.saveUser(tempUser));
 		
 	}

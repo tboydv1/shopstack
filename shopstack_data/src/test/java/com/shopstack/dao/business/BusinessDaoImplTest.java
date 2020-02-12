@@ -19,9 +19,13 @@ import com.shopstack.dao.businessuser.BusinessUserDao;
 import com.shopstack.entities.business.Business;
 import com.shopstack.entities.business.BusinessCategory;
 import com.shopstack.entities.business.BusinessServiceType;
-import com.shopstack.entities.user.BusinessUser;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 
+/**
+ * @author oluwatobi
+ *
+ */
 @Sql(scripts= {"classpath:/db/shopstack-create-db.sql", "classpath:/db/business-category-insert.sql", "classpath:/db/insert-users.sql"})
 @ContextConfiguration(classes= DataContextConfig.class)	
 @RunWith(SpringRunner.class)
@@ -62,14 +66,7 @@ public class BusinessDaoImplTest {
 	public void getBusinessServiceTest() {
 		
 		List<BusinessServiceType> savedList = businessServiceDaoImpl.getBusinessServices(); 
-		
 		assertNotNull(savedList);
-		
-		for(BusinessServiceType value : savedList) {
-			
-			System.out.println(value.toString());
-		}
-		
 		
 	}
 	
@@ -78,15 +75,9 @@ public class BusinessDaoImplTest {
 	public void getBusinessCategories() {
 		
 		List<BusinessCategory> savedList = businessCategoryDaoImpl.getCategories(); 
-		
 		assertNotNull(savedList);
-		
-		for(BusinessCategory value : savedList) {
-			
-			System.out.println(value.toString());
-		}
-		
-		
+//		savedList.forEach(System.out::println);
+
 	}
 	
 	@Test
@@ -101,11 +92,14 @@ public class BusinessDaoImplTest {
 		List<BusinessServiceType> servicesList = businessServiceDaoImpl.getBusinessServices(); 
 		assertNotNull(servicesList);
 		
-		Business newBusiness = new Business("Shopify", "shopify@mybusiness.com", categoryList.get(2), servicesList.get(1), businessUser);
+		Business newBusiness = new Business("Shopify", "shopify@mybusiness.com", 
+				categoryList.get(2), servicesList.get(1), businessUser);
 		
 		businessDaoImpl.saveBusiness(newBusiness);
 		
-
+		int businessId = newBusiness.getBizId();
+		Business savedBusiness = businessDaoImpl.findById(businessId);
+		assertNotNull(savedBusiness);
 		
 	}
 	

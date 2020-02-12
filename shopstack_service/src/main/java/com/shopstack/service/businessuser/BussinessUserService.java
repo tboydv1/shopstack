@@ -1,9 +1,12 @@
 package com.shopstack.service.businessuser;
 
-import com.shopstack.entities.business.Business;
-import com.shopstack.entities.user.BusinessUser;
-import com.shopstack.entities.user.VerificationToken;
+import com.shopstack.entities.businessuser.BusinessUser;
+import com.shopstack.entities.businessuser.VerificationToken;
 
+/**
+ * @author oluwatobi
+ *
+ */
 public interface BussinessUserService {
 
 	public void createVerificationTokenForUser(final BusinessUser businessUser, final String token);

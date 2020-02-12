@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author oluwatobi
+ *
+ */
 @Entity
 @Table(name="business_services")
 public class BusinessServiceType {
