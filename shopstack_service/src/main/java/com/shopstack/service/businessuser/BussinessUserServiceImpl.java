@@ -74,5 +74,12 @@ public class BussinessUserServiceImpl implements BussinessUserService{
 	        return false;
 
 	}
+
+	@Override
+	public void activateUser(BusinessUser existingbusinessUser) {
+		
+		bussinessUserDaoImpl.saveUser(existingbusinessUser);
+		
+	}
 	
 }

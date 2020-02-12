@@ -15,6 +15,5 @@ public interface BussinessUserService {
 	
 	public BusinessUser registerNewUserAccount(BusinessUser businessUser, String role) throws EmailExistsException;
 	
-	
-	
+	public void activateUser(BusinessUser existingbusinessUser);
 }

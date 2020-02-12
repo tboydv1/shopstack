@@ -18,7 +18,7 @@
 		
 	</p>
 	
-	<form:form action="${pageContext.request.contextPath}/shop-owner/register" 
+	<form:form action="${pageContext.request.contextPath}/user/register" 
 			method="GET">
 		
 		<input type="submit" value="Create Account">

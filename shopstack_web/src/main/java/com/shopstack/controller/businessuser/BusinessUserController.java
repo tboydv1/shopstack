@@ -1,9 +1,9 @@
 package com.shopstack.controller.businessuser;
 
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ibm.icu.util.Calendar;
 import com.shopstack.controller.event.OnRegistrationCompleteEvent;
 import com.shopstack.entities.businessuser.BusinessUser;
+import com.shopstack.entities.businessuser.VerificationToken;
 import com.shopstack.service.businessuser.BussinessUserService;
 
 @Controller
@@ -70,7 +72,9 @@ public class BusinessUserController {
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
 					(businessUser, request.getLocale(), appUrl));
 		}catch(RuntimeException runtime) {
-			return new ModelAndView("emailErro", "user", new BusinessUser());
+				
+			runtime.printStackTrace();
+			return new ModelAndView("emailError", "user", new BusinessUser());
 		}
 		
 		
@@ -82,8 +86,26 @@ public class BusinessUserController {
 	public String confirmRegistration(WebRequest request, Model model, 
 			@RequestParam("token") String token) {
 		
+		Locale locale = request.getLocale();
 		
-		return null;
+		VerificationToken savedToken = businessUserServiceImpl.getUserVerificationToken(token);
+		if(savedToken == null) {
+			model.addAttribute("user","invalid user");
+			return "user-expired";
+		}
+		
+		BusinessUser existingUser = savedToken.getUser();
+		Calendar cal = Calendar.getInstance();
+		
+		if(savedToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0) {
+			model.addAttribute("user", "user is expired");
+			return "user-expired";
+		}
+		
+		existingUser.setEnabled(1);
+		businessUserServiceImpl.activateUser(existingUser);
+		
+		return "login";
 	}
 	
 	
