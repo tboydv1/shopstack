@@ -1,5 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 eclipse.preferences.version=1
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=12
@@ -9,6 +12,9 @@ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
 org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
 org.eclipse.jdt.core.compiler.release=disabled
 org.eclipse.jdt.core.compiler.source=12
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 eclipse.preferences.version=1
@@ -23,6 +29,10 @@ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=warning
 org.eclipse.jdt.core.compiler.release=disabled
 org.eclipse.jdt.core.compiler.source=12
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> staging
+>>>>>>> Stashed changes
 =======
 >>>>>>> staging
 >>>>>>> Stashed changes

@@ -1,7 +1,6 @@
 package com.shopstack.dao.customer;
 
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jboss.logging.Logger;
@@ -24,9 +23,10 @@ public class CustomerDaoImpl implements CustomerDao {
 	
 	private Logger logger = Logger.getLogger(CustomerDao.class);
 	
-	
-@Override
+
+@Transactional
 public void addCustomer(Customer customerId) {
+		
 
 	Session currentSession = sessionFactory.getCurrentSession();
 	logger.info("Saving Customer to database " + customerId.toString());
