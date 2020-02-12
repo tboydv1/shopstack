@@ -1,4 +1,6 @@
 -- MySQL Workbench Forward Engineering
+-- Shopstack Database scripts-- 
+
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -341,7 +343,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
-  `token_id` INT(11) NOT NULL,
+  `token_id` INT(11) NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(45) NULL DEFAULT NULL,
   `expiry_date` VARCHAR(45) NULL DEFAULT NULL,
   `ss_user_id` INT(11) NOT NULL,

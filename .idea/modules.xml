@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/shopstack_alpha.iml" filepath="$PROJECT_DIR$/shopstack_alpha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopstack_data/shopstack_data.iml" filepath="$PROJECT_DIR$/shopstack_data/shopstack_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopstack_service/shopstack_service.iml" filepath="$PROJECT_DIR$/shopstack_service/shopstack_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopstack_web/shopstack_web.iml" filepath="$PROJECT_DIR$/shopstack_web/shopstack_web.iml" />
+    </modules>
+  </component>
+</project>
