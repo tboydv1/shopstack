@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 import org.jboss.logging.Logger;
@@ -12,23 +12,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
-
-import com.shopstack.controller.customer.CustomerController;
 import com.shopstack.entities.customer.Customer;
 import com.shopstack.service.customer.CustomerService;
 
-@ContextConfiguration("file:src/main/webapp/WEB-INF/web-layer-context-servlet.xml ")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/test-context-web.xml")
 @RunWith(SpringRunner.class)
 public class CustomerControllerTest {
-	private Logger logger;
-	private MockMvc mockMvc;
 	
+	private Logger logger = Logger.getLogger(getClass().getName());
+
 	
 	@Mock
 	private CustomerService customerserviceImpl;
@@ -37,9 +31,8 @@ public class CustomerControllerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		
-		this.mockMvc = MockMvcBuilders.standaloneSetup(CustomerController.class).build();
+
+		customerserviceImpl = mock(CustomerService.class);
 	}
 
 	@Test
@@ -49,20 +42,15 @@ public class CustomerControllerTest {
 
 	@Test
 	public void addCustomer() throws Exception {
-		try {
-		Customer myCustomer = new Customer("Adelola", "adeola@gmail.com", "Fabtech Nigeria Limited", 324);
+
+			
+		Customer myCustomer = new Customer("adeola@gmail.com");
+		
 		doNothing().when(customerserviceImpl).addCustomer(isA(Customer.class));
 		
 		customerserviceImpl.addCustomer(myCustomer);
 		
 		verify(customerserviceImpl, times(1)).addCustomer(myCustomer);
-		
-		}
 	
-		catch(Exception e) {
-			logger.info("Error connecting");
-			e.printStackTrace();
-	
-	}
 	}
 }

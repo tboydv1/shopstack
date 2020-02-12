@@ -47,10 +47,10 @@ class CustomerServiceImplTest {
 	}
 	
 	@Test
- public void  cutomerExistInDatabaseTest() {
+	public void saveNewCustomerTest() {
 		
 		try {
-			Customer customer = new Customer("Peter","Brand@gmail","adejola Venture", 2312);
+			Customer customer = new Customer("Brand@gmail");
 			 
 			doNothing().when(customerServiceImpl).addCustomer(isA(Customer.class));
 			

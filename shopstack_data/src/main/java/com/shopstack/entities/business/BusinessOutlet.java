@@ -70,7 +70,9 @@ public class BusinessOutlet {
 	)
 	private List<BusinessUser> employees;
 	
-	
+	public BusinessOutlet() {
+		
+	}
 	
 	
 	public BusinessOutlet(int outletId, @NotNull String displayName, @NotNull String location, Business businessId) {

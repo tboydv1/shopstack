@@ -45,6 +45,14 @@ public class CustomerDaoImpl implements CustomerDao {
 		 
 		
 		}
+
+
+	@Transactional
+	@Override
+	public Customer findById(int customerId) {
+		// TODO Auto-generated method stub
+		return sessionFactory.getCurrentSession().get(Customer.class, customerId);
+	}
 	
 
 	

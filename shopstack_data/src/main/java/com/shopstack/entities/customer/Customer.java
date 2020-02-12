@@ -5,13 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.shopstack.entities.business.Business;
+import com.shopstack.entities.business.BusinessOutlet;
 
+/**
+ * @author adefunmi
+ *
+ */
 @Entity
 @Table(name="customer")
 public class Customer {
@@ -21,23 +29,25 @@ public class Customer {
 	@Column(name="customer_id")
 	private int customerId;
 	
-	@Column(name="name")
-	@NotNull(message= "is required")
-	@Size(min=4, max=45)
-	private String name;
+	@Column(name="title")
+	private String title;
 	
-	@Column(name="email")
+	@Column(name="firstname")
+	private String firtname;
+	
+	@Column(name="lastname")
+	private String lastname;
+	
 	@NotNull
-	@Email
+	@Column(name="email")
 	private String email;
 	 
-	@Column(name="organization_name")
-	private String organizationName;
+	@Column(name="phone_number")
+	private String contactNumber;
 	
-	@Column(name="contact_number")
-	@NotNull(message="is required")
-//	@Size(max=13)
-	private int contactNumber;
+	@ManyToOne
+	@JoinColumn(name="ss_business_outlet_ss_business_outlet_id")
+	private BusinessOutlet businessOutlet;
 	
 	
 	public Customer() {
@@ -45,34 +55,58 @@ public class Customer {
 	}
 	
 	
-	public Customer( @NotEmpty @Size(min = 4, max = 45) String name, @NotNull @Email String email,
-			@NotEmpty String organizationName, int contactNumber) {	
-		this.name = name;
-		this.email = email;
-		this.organizationName = organizationName;
-		this.contactNumber = contactNumber;
-	}
 	
+	public Customer(@NotNull String email) {
+		super();
+		this.email = email;
+	}
+
+	public Customer(String info, BusinessOutlet existingBusiness) {
+		super();
+		this.email = info;
+		this.businessOutlet = existingBusiness;
+	}
+
+
+
 	public int getCustomerId() {
 		return customerId;
 	}
+
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 
 
-
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
+
+	public String getFirtname() {
+		return firtname;
+	}
+
+
+	public void setFirtname(String firtname) {
+		this.firtname = firtname;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
 
 	public String getEmail() {
@@ -80,39 +114,37 @@ public class Customer {
 	}
 
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 
-
-	public String getOrganizationName() {
-		return organizationName;
-	}
 	
-	public void setOrganization_name(String organizationName) {
-		this.organizationName = organizationName;
-	}
 
 
-
-	public int getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
 
 
-
-	public void setContact_number(int contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [name=" + name + ", email=" + email + ", organization_name=" + organizationName
-				+ ", contact_number=" + contactNumber + "]";
+
+	public BusinessOutlet getBusinessOutlet() {
+		return businessOutlet;
 	}
 
 
-	 
+	public void setBusinessOutlet(BusinessOutlet businessOutlet) {
+		this.businessOutlet = businessOutlet;
+	}
+
+
+
+	
+	
+	
+
 }

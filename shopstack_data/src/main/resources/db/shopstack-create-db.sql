@@ -129,7 +129,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`ss_business_outlet` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`ss_business_outlet` (
-  `ss_business_outlet_id` INT(11) NOT NULL,
+  `ss_business_outlet_id` INT(11) NOT NULL AUTO_INCREMENT,
   `ss_outlet_display_name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(45) NULL DEFAULT NULL,
   `location` VARCHAR(45) NOT NULL,
@@ -247,11 +247,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `shopstack`.`customer` ;
 
 CREATE TABLE IF NOT EXISTS `shopstack`.`customer` (
-  `customer_id` INT(11) NOT NULL,
+  `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NULL DEFAULT NULL,
   `firstname` VARCHAR(45) NULL DEFAULT NULL,
   `lastname` VARCHAR(45) NULL DEFAULT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) NULL DEFAULT NULL,
   `ss_business_outlet_ss_business_outlet_id` INT(11) NOT NULL,
   PRIMARY KEY (`customer_id`),

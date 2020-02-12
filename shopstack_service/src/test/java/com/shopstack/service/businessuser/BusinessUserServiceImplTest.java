@@ -23,8 +23,6 @@ import com.shopstack.entities.businessuser.BusinessUser;
 @RunWith(SpringRunner.class)
 public class BusinessUserServiceImplTest {
 
-	@Autowired
-	private BussinessUserService businessUserServiceImpl;
 	
 	@Mock
 	private BussinessUserService businessUserServiceImplMock;
@@ -33,7 +31,7 @@ public class BusinessUserServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		businessUserServiceImpl = mock(BussinessUserService.class);
+		businessUserServiceImplMock = mock(BussinessUserService.class);
 	}
 
 	@After
