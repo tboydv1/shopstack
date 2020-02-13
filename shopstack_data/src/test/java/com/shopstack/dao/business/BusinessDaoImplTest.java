@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.jboss.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -36,11 +37,6 @@ public class BusinessDaoImplTest {
 	@Autowired
 	private BusinessUserDao businessUserDao;
 	
-	@Autowired
-	private BusinessCategoryDao businessCategoryDaoImpl;
-	
-	@Autowired
-	private BusinessServiceTypeDao businessServiceDaoImpl;
 	
 	@Autowired
 	private BusinessDao businessDaoImpl;
@@ -57,15 +53,13 @@ public class BusinessDaoImplTest {
 	
 	@Test
 	public void classesInitializedTest() {
-		
-		assertNotNull(businessCategoryDaoImpl);
-		assertNotNull(businessServiceDaoImpl);
+		assertNotNull(businessDaoImpl);
 	}
 	
 	@Test
 	public void getBusinessServiceTest() {
 		
-		List<BusinessServiceType> savedList = businessServiceDaoImpl.getBusinessServices(); 
+		List<BusinessServiceType> savedList = businessDaoImpl.findAllServiceTypes(); 
 		assertNotNull(savedList);
 		
 	}
@@ -74,7 +68,7 @@ public class BusinessDaoImplTest {
 	@Test
 	public void getBusinessCategories() {
 		
-		List<BusinessCategory> savedList = businessCategoryDaoImpl.getCategories(); 
+		List<BusinessCategory> savedList = businessDaoImpl.findAllCategories(); 
 		assertNotNull(savedList);
 //		savedList.forEach(System.out::println);
 
@@ -86,10 +80,10 @@ public class BusinessDaoImplTest {
 		BusinessUser businessUser = businessUserDao.loadUserByEmail("tosho@mail.com");
 		assertNotNull(businessUser);
 		
-		List<BusinessCategory> categoryList = businessCategoryDaoImpl.getCategories(); 
+		List<BusinessCategory> categoryList = businessDaoImpl.findAllCategories(); 
 		assertNotNull(categoryList);
 		
-		List<BusinessServiceType> servicesList = businessServiceDaoImpl.getBusinessServices(); 
+		List<BusinessServiceType> servicesList = businessDaoImpl.findAllServiceTypes(); 
 		assertNotNull(servicesList);
 		
 		Business newBusiness = new Business("Shopify", "shopify@mybusiness.com", 
@@ -99,7 +93,11 @@ public class BusinessDaoImplTest {
 		
 		int businessId = newBusiness.getBizId();
 		Business savedBusiness = businessDaoImpl.findById(businessId);
+				
 		assertNotNull(savedBusiness);
+		assertNotNull(savedBusiness.getBizCategory());
+		assertNotNull(savedBusiness.getBizService());
+		assertNotNull(savedBusiness.getCreator());
 		
 	}
 	

@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shopstack.entities.business.Business;
+import com.shopstack.entities.business.BusinessCategory;
+import com.shopstack.entities.business.BusinessOutlet;
+import com.shopstack.entities.business.BusinessServiceType;
 import com.shopstack.entities.businessuser.BusinessUser;
 
 
@@ -21,7 +25,6 @@ import com.shopstack.entities.businessuser.BusinessUser;
  *
  */
 @Repository
-@Transactional
 public class BusinessDaoImpl implements BusinessDao {
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
@@ -31,6 +34,7 @@ public class BusinessDaoImpl implements BusinessDao {
 
 	
 	@Override
+	@Transactional
 	public void saveBusiness(Business theBusiness) {
 		
 		Session currentSession = getCurrentSession();
@@ -55,19 +59,8 @@ public class BusinessDaoImpl implements BusinessDao {
 	}
 
 
-
 	@Override
-	public void deleteBusiness(int businessId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateBusiness() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
+	@Transactional
 	public List<Business> findByOwner(BusinessUser businessUser) {
 
 		return null;
@@ -75,11 +68,12 @@ public class BusinessDaoImpl implements BusinessDao {
 	}
 	
 	@Override
+	@Transactional
 	public Business findByEmail(String bizEmail) {
 		
 		Business result = null;
 		
-		Session currentSession = sessionFactory.getCurrentSession();
+		Session currentSession = getCurrentSession();
 		
 		try {
 			
@@ -106,11 +100,85 @@ public class BusinessDaoImpl implements BusinessDao {
 	}
 
 	@Override
+	@Transactional
 	public Business findById(int businessId) {
 		
-		Session currentSession = sessionFactory.getCurrentSession();
+		Session currentSession = getCurrentSession();
+		Business existingBusiness;
 		
-		return currentSession.get(Business.class, businessId);
+		try {
+			existingBusiness = currentSession.get(Business.class, businessId);
+			
+			Hibernate.initialize(existingBusiness.getBizCategory());
+			Hibernate.initialize(existingBusiness.getBizService());
+			Hibernate.initialize(existingBusiness.getCreator());
+		}
+		catch(HibernateException he) {
+			logger.info("Hibernate exception");
+			existingBusiness = null;
+		}
+		
+		return existingBusiness;
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<BusinessCategory> findAllCategories() {
+		
+		List<BusinessCategory> result = null;
+		
+		Session currentSession = getCurrentSession();
+		
+		try {
+			@SuppressWarnings("rawtypes")
+			Query query = currentSession.createQuery("from BusinessCategory");
+			
+			result =  query.getResultList();
+		}
+		catch(RuntimeException ex) {
+			
+			logger.info("Error fetching Business Categories");
+			result = null;
+		}
+		
+		return result;
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<BusinessServiceType> findAllServiceTypes() {
+		
+		List<BusinessServiceType> result = null;
+		
+		Session currentSession = getCurrentSession();
+		
+		try {
+			@SuppressWarnings("rawtypes")
+			Query query = currentSession.createQuery("from BusinessServiceType");
+			
+			result =  query.getResultList();
+		}
+		catch(RuntimeException ex) {
+			
+			logger.info("Error fetching Business Service Types");
+			result = null;
+		}
+		
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public BusinessOutlet findOutletById(int outletId) {
+			
+		Session currentSession = getCurrentSession();
+		
+		return currentSession.get(BusinessOutlet.class, outletId);
+		
 	}
 	
 	

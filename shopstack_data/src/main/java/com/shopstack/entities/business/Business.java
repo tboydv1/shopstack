@@ -19,8 +19,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
-import com.shopstack.entities.businessuser.*;
+import com.shopstack.entities.businessuser.BusinessUser;
 
 
 /**
@@ -62,6 +64,7 @@ public class Business {
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="biz_category_id")
+	@LazyToOne(LazyToOneOption.NO_PROXY)
 	private BusinessCategory bizCategory;
 	
 	@NotNull()
@@ -69,7 +72,7 @@ public class Business {
 	@JoinColumn(name="biz_service_id")
 	private BusinessServiceType bizService;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="businessId", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="businessId", cascade=CascadeType.ALL)
 	private List<BusinessOutlet> businessOutlets;
 	
 	@NotNull
@@ -185,6 +188,16 @@ public class Business {
 
 	public void setBusinessOutlets(List<BusinessOutlet> businessOutlets) {
 		this.businessOutlets = businessOutlets;
+	}
+	
+	
+
+	public BusinessUser getCreator() {
+		return creator;
+	}
+
+	public void setCreator(BusinessUser creator) {
+		this.creator = creator;
 	}
 
 	@Override

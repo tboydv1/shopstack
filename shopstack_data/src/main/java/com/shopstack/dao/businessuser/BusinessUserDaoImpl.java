@@ -18,7 +18,6 @@ import com.shopstack.entities.businessuser.BusinessUser;
  *
  */
 @Repository
-@Transactional
 public class BusinessUserDaoImpl implements BusinessUserDao{
 
 	
@@ -30,6 +29,7 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 
 
 	@Override
+	@Transactional
 	public List<BusinessUser> getUsers() {
 		
 		List<BusinessUser> resultList = null;
@@ -53,6 +53,7 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 	}
 
 	@Override
+	@Transactional
 	public void saveUser(BusinessUser theUser) {
 			
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -68,6 +69,7 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 
 
 	@Override
+	@Transactional
 	public BusinessUser loadUserById(int businessUserId) {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -80,6 +82,7 @@ public class BusinessUserDaoImpl implements BusinessUserDao{
 	}
 
 	@Override
+	@Transactional
 	public BusinessUser loadUserByEmail(String email) {
 			
 		BusinessUser existingUser;

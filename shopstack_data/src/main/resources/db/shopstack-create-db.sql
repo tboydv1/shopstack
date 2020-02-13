@@ -1,18 +1,9 @@
 -- MySQL Workbench Forward Engineering
--- Shopstack Database scripts-- 
-
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema shopstack
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `shopstack` ;
 
 -- -----------------------------------------------------
 -- Schema shopstack
@@ -20,7 +11,7 @@ DROP SCHEMA IF EXISTS `shopstack` ;
 CREATE SCHEMA IF NOT EXISTS `shopstack` DEFAULT CHARACTER SET latin1 ;
 USE `shopstack` ;
 
--- -----------------------------------------------------
+-----------------------------------------------------
 -- Table `shopstack`.`business_category`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopstack`.`business_category` ;
@@ -28,7 +19,8 @@ DROP TABLE IF EXISTS `shopstack`.`business_category` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`business_category` (
   `biz_category_id` INT(11) NOT NULL AUTO_INCREMENT,
   `biz_category_name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`biz_category_id`))
+  PRIMARY KEY (`biz_category_id`),
+  UNIQUE INDEX `biz_category_name_UNIQUE` (`biz_category_name` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -41,7 +33,8 @@ DROP TABLE IF EXISTS `shopstack`.`business_services` ;
 CREATE TABLE IF NOT EXISTS `shopstack`.`business_services` (
   `biz_service_id` INT(11) NOT NULL AUTO_INCREMENT,
   `biz_service_name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`biz_service_id`))
+  PRIMARY KEY (`biz_service_id`),
+  UNIQUE INDEX `biz_service_name_UNIQUE` (`biz_service_name` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -60,12 +53,13 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`ss_user` (
   `ss_email` VARCHAR(45) NOT NULL,
   `ss_phone_number` VARCHAR(45) NOT NULL,
   `ss_date_joined` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ss_password` VARCHAR(45) NULL DEFAULT NULL,
-  `ss_enabled` TINYINT(1) NULL DEFAULT NULL,
+  `ss_password` VARCHAR(45) NOT NULL,
+  `ss_enabled` TINYINT(1) NOT NULL,
+  `ss_status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ss_user_id`, `ss_email`),
   INDEX `index2` (`ss_email` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -333,29 +327,8 @@ CREATE TABLE IF NOT EXISTS `shopstack`.`role` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `shopstack`.`verification_token`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopstack`.`verification_token` ;
-
-CREATE TABLE IF NOT EXISTS `shopstack`.`verification_token` (
-  `token_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `token` VARCHAR(45) NULL DEFAULT NULL,
-  `expiry_date` VARCHAR(45) NULL DEFAULT NULL,
-  `ss_user_id` INT(11) NOT NULL,
-  PRIMARY KEY (`token_id`, `ss_user_id`),
-  INDEX `fk_verification_token_ss_user1_idx` (`ss_user_id` ASC),
-  CONSTRAINT `fk_verification_token_ss_user1`
-    FOREIGN KEY (`ss_user_id`)
-    REFERENCES `shopstack`.`ss_user` (`ss_user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

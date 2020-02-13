@@ -52,8 +52,11 @@ public class RegistrationListner implements ApplicationListener<OnRegistrationCo
 		//create confimation url
 		String recepientAddress = businessUser.getEmail();
 		String subject = "Registration Confimation";
-		String confirmationUrl = event.getAppUrl() + "/shop-owner/registrationConfirm?token="+token;
-        String message = messages.getMessage("message.regCon ", null, event.getLocale());		
+		String confirmationUrl = event.getAppUrl() + "/user/confirm?token="+token;
+        String message = messages.getMessage(
+        		"Thank you for signing up to shopstack"
+        		+ "/n"
+        		+ "click the link below to verify your account\n ", null, event.getLocale());		
 		//send email
 		SimpleMailMessage email = new SimpleMailMessage();
 		

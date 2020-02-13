@@ -3,6 +3,9 @@ package com.shopstack.dao.business;
 import java.util.List;
 
 import com.shopstack.entities.business.Business;
+import com.shopstack.entities.business.BusinessCategory;
+import com.shopstack.entities.business.BusinessOutlet;
+import com.shopstack.entities.business.BusinessServiceType;
 import com.shopstack.entities.businessuser.BusinessUser;
 
 
@@ -17,12 +20,14 @@ public interface BusinessDao {
 	
 	public List<Business> findByOwner(BusinessUser businessUser);
 	
-	public void deleteBusiness(int shopId);
-	
 	public Business findByEmail(String bizEmail);
-	
-	public void updateBusiness();
-	
+		
 	public Business findById(int businessId);
+	
+	public List<BusinessCategory> findAllCategories();
+	
+	public List<BusinessServiceType> findAllServiceTypes();
+	
+	public BusinessOutlet findOutletById(int outletId);
 	
 }

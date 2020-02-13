@@ -10,8 +10,9 @@
 </head>
 <body>
 	
-	A confirmation link has been sent to your <h1>${user_email}</h1>!!
-	
+	<p>
+	A confirmation link has been sent to your <h1>${user_email}</h1>
+	</p>
 	<br>
 
 	

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,7 +73,12 @@ public class BusinessUser {
 	
 	
 	@Column(name="ss_enabled")
-	private int enabled;
+	private boolean enabled;
+
+
+	@Column(name="ss_status")
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@OneToMany(mappedBy="userEmail")
 	private List<Role> userRoles;
@@ -92,7 +99,6 @@ public class BusinessUser {
 		
 	}
 	
-	
 	public BusinessUser(@NotNull String firstName, @NotNull String lastName, @NotNull @Email String email,
 			@NotNull String contactNumber, @NotNull String password) {
 		super();
@@ -101,7 +107,8 @@ public class BusinessUser {
 		this.email = email;
 		this.phoneNumber = contactNumber;
 		this.password = password;
-		this.enabled = 0;
+		this.enabled = false;
+		this.status = Status.PENDING;
 	}
 
 	public String getPassword() {
@@ -112,18 +119,17 @@ public class BusinessUser {
 		this.password = password;
 	}
 
-	public int getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(int enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
 	public int getUserId() {
 		return userId;
 	}
-
 
 
 	public String getFirstName() {
@@ -195,15 +201,6 @@ public class BusinessUser {
 	}
 
 
-
-	@Override
-	public String toString() {
-		return "BusinessUser [userId=" + userId + ", title=" + title + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", dateJoined=" + dateJoined
-				+ ", enabled=" + enabled + "]";
-	}
-
-
 	public List<Role> getUserRoles() {
 		return userRoles;
 	}
@@ -232,6 +229,24 @@ public class BusinessUser {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+	public void setUserRoles(List<Role> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	public Status getUserStatus() {
+		return status;
+	}
+
+	public void setUserStatus(Status userStatus) {
+		this.status = userStatus;
+	}
+	
+	
+
+
+
+	
 	
 	
 	

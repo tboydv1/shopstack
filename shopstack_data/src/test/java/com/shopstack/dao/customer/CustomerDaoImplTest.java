@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.shopstack.context.config.DataContextConfig;
-import com.shopstack.dao.business.BusinessOutletDao;
+import com.shopstack.dao.business.BusinessDao;
 import com.shopstack.entities.business.BusinessOutlet;
 import com.shopstack.entities.customer.Customer;
 
@@ -34,7 +34,7 @@ public class CustomerDaoImplTest {
 		private CustomerDao customerDaoImpl;
 		
 		@Autowired
-		private BusinessOutletDao businessOutletDaoImpl;
+		private BusinessDao businessDaoImpl;
 		
 		@Autowired
 		private ComboPooledDataSource dataSource;
@@ -56,7 +56,7 @@ public class CustomerDaoImplTest {
 		
 		try {
 			
-				BusinessOutlet existingBusiness = businessOutletDaoImpl.findById(7);
+				BusinessOutlet existingBusiness = businessDaoImpl.findOutletById(7);
 				assertNotNull(existingBusiness);
 				
 				logger.info("Create new customer");
